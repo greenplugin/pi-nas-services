@@ -3,8 +3,6 @@
 #
 FROM alpine
 
-MAINTAINER kev <noreply@easypi.pro>
-
 RUN apk add --no-cache iptables ppp pptpd
 
 EXPOSE 1723

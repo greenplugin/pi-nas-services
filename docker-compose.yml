@@ -10,3 +10,5 @@ services:
       - ./pptpd/chap-secrets.conf:/etc/ppp/chap-secrets
     privileged: true
     restart: always
+    ports:
+      - 0.0.0.0:1723:1723
