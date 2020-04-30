@@ -2,10 +2,11 @@ version: "3.6"
 
 services:
   pptpd:
-    image: vimagick/pptpd
+    build: ./pptpd
+    container_name: pptpd
     volumes:
       - ./pptpd/pptpd.conf:/etc/pptpd.conf
-      - ./pptpd/pptpd-options.conf:/etc/ppp/pptpd-options.conf
+      - ./pptpd/pptpd-options.conf:/etc/ppp/pptpd-options
       - ./pptpd/chap-secrets.conf:/etc/ppp/chap-secrets
     privileged: true
     restart: always
