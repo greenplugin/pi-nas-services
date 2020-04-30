@@ -7,8 +7,9 @@ services:
     volumes:
       - ./pptpd/pptpd.conf:/etc/pptpd.conf
       - ./pptpd/pptpd-options.conf:/etc/ppp/pptpd-options
-      - ./pptpd/chap-secrets.conf:/etc/ppp/chap-secrets
+      - ./pptpd/chap-secrets:/etc/ppp/chap-secrets
     privileged: true
     restart: always
+    network_mode: host
     ports:
       - 0.0.0.0:1723:1723
