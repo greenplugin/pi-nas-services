@@ -3,7 +3,7 @@
 #
 FROM alpine
 
-RUN apk add --no-cache iptables ppp pptpd
+RUN apk add --no-cache iptables ppp pptpd bcrelay
 
 EXPOSE 1723
 
