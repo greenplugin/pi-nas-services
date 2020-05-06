@@ -12,3 +12,23 @@ services:
     restart: always
     ports:
       - 0.0.0.0:1723:1723
+  pi_admin_backend:
+    build: ./pi-admin/backend
+    container_name: pi_admin_backend
+    volumes:
+      - ./pptpd/pptpd.conf:/config/pptpd/pptpd.conf
+      - ./pptpd/pptpd-options.conf:/config/pptpd/pptpd-options
+      - ./pptpd/chap-secrets:/config/pptpd/chap-secrets
+      - ./pi-admin/backend:/var/app/backend
+    privileged: true
+    restart: always
+    ports:
+      - 3000:3000
+  pi_admin_frontend:
+    build: ./pi-admin/frontend
+    container_name: pi_admin_frontend
+    volumes:
+      - ./pi-admin/frontend:/var/app/frontend
+    restart: always
+    ports:
+      - 4200:4200
