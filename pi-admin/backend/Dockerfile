@@ -2,6 +2,6 @@ FROM node:14
 
 WORKDIR /var/app/backend
 
-RUN npm install
+RUN yarn install
 
-CMD npm run start:dev
+CMD yarn start:dev
