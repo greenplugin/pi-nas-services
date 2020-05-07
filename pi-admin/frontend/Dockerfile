@@ -4,4 +4,4 @@ WORKDIR /var/app/frontend
 
 RUN npm install -g @angular/cli
 
-CMD npm i --only=dev && yarn start-on-host
+CMD NODE_ENV=development && npm i && yarn start-on-host
