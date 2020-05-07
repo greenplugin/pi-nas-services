@@ -5,7 +5,7 @@ import {HttpClient} from "@angular/common/http";
     providedIn: 'root'
 })
 export class ApiService {
-    private readonly apiPath = 'http://localhost:3000/api'
+    private readonly apiPath = `http://${window.location.hostname}:3000/api`
 
     constructor(private http: HttpClient) {
     }
