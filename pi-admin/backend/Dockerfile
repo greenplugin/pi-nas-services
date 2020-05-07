@@ -2,4 +2,6 @@ FROM node:12
 
 WORKDIR /var/app/backend
 
-CMD npm install && npm run start:dev
+RUN npm install
+
+CMD npm run start:dev
