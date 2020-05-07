@@ -1,0 +1,60 @@
+.full-size-container {
+  background: #e3e3ee;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  overflow: auto;
+
+  mat-sidenav {
+    //background: #673ab7;
+    color: #ffffff;
+    max-width: 25rem;
+  }
+}
+
+
+mat-expansion-panel {
+  margin: 0;
+  //color: #ffffff;
+  //background: transparent;
+  mat-icon {
+    margin-right: 1rem;
+  }
+
+  .mat-expansion-panel-body {
+    padding: 0;
+    margin: 0;
+  }
+
+
+}
+
+
+.menu {
+  margin: 0 -24px -16px;
+  background: rgba(227, 227, 238, 0.44);
+  box-shadow: 0 -3px 10px #663ab742 inset;
+
+  > button {
+    width: 100%;
+    border-radius: 0;
+    text-align: left;
+    padding: 1rem;
+  }
+
+  .button-group {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+    flex-direction: row;
+
+    > .mat-button {
+      border-radius: 0;
+      text-align: left;
+      padding: 1rem;
+      flex: 1 1 auto;
+    }
+  }
+}

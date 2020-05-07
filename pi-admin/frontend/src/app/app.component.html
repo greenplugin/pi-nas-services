@@ -1,21 +1,91 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button *ngIf="!sidenavOpened" (click)="sidenavOpened = true">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="sidenavOpened" (click)="sidenavOpened = false">
+      <mat-icon>close</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
+    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-sidenav-container class="full-size-container">
+  <mat-sidenav mode="side" [(opened)]="sidenavOpened">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>vpn_lock</mat-icon>
+            VPN
+          </mat-panel-title>
+          <mat-panel-description>
+            edit vpn settings
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="menu">
+          <button mat-button color="primary">
+            <mat-icon svgIcon="pptpd"></mat-icon>
+            PPTP
+          </button>
+          <button mat-button color="primary">
+            <mat-icon svgIcon="openvpn"></mat-icon>
+            OpenVpn
+          </button>
+          <button mat-button color="primary">L2P/IPSec</button>
+          <button mat-button color="primary">IPSec</button>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon svgIcon="docker"></mat-icon>
+            Docker
+          </mat-panel-title>
+          <mat-panel-description>Container settings</mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="menu">
+          <div class="button-group" *ngFor="let container of containers">
+            <button mat-button color="primary">{{container.Image}}</button>
+            <button mat-icon-button color="warn" *ngIf="!container.restarting">
+              <mat-icon style="margin:0" (click)="restartContainer(container)">refresh</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" *ngIf="container.restarting">
+              <mat-progress-spinner
+                      style="zoom: 0.3"
+                      color="primary"
+                      mode="indeterminate"
+              >
+              </mat-progress-spinner>
+            </button>
+            <button mat-icon-button color="primary" (click)="showInfo(container)">
+              <mat-icon style="margin:0">info</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon svgIcon="raspberry_color"></mat-icon>
+            HOST
+          </mat-panel-title>
+          <mat-panel-description>
+            <ng-container *ngIf="tempAvg">({{tempAvg}}°C avg)</ng-container>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="menu">
+          <mat-list>
+            <mat-list-item *ngFor="let t of temp">{{t.zone}}: {{t.temp}}</mat-list-item>
+          </mat-list>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 
-<router-outlet></router-outlet>
