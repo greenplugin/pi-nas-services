@@ -1,5 +1,9 @@
 import {readFileSync} from "fs";
-import {ConfigDataInterface, ConfigLineInterface} from "./interfaces/ConfigDataInterface";
+import {
+    ConfigCommentOrEmptyInterface,
+    ConfigDataInterface,
+    ConfigLineInterface
+} from "./interfaces/ConfigDataInterface";
 
 export class DefaultConfigProvider {
     constructor(private path: string) {
@@ -11,26 +15,32 @@ export class DefaultConfigProvider {
         // @ts-ignore
         const lines = [...content.matchAll(/^.*$/gm)]
             .map(entry => entry[0])
-            .map((line: string): ConfigLineInterface => {
+            .map((line: string): ConfigLineInterface | ConfigCommentOrEmptyInterface => {
                 if (line.replace(/\s*/g, '') === '') {
                     return {
                         type: "emptyLine",
-                        key: '',
                         value: ''
                     }
                 }
-                if (/^#/gm.test(line)) {
+                if (/^#[^#]/gm.test(line)) {
                     return {
                         type: "comment",
-                        key: '',
                         value: line
                     }
                 }
+                let disabled = false;
+
+                if (/^##/gm.test(line)) {
+                    line = line.replace(/^##/, '');
+                    disabled = true;
+                }
+
                 let [key, value] = line.split(/\s+/);
                 return {
                     type: 'option',
                     key: key || '',
-                    value: value || ''
+                    value: value || '',
+                    disabled
                 }
             })
 

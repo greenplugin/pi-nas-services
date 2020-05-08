@@ -8,8 +8,9 @@
       <mat-icon>close</mat-icon>
     </button>
     <span class="spacer"></span>
-    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
-    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
+    <button mat-icon-button routerLink="/">
+      <mat-icon>home</mat-icon>
+    </button>
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-sidenav-container class="full-size-container">
@@ -26,7 +27,7 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <div class="menu">
-          <button mat-button color="primary">
+          <button mat-button routerLink="/pptp" color="primary">
             <mat-icon svgIcon="pptpd"></mat-icon>
             PPTP
           </button>

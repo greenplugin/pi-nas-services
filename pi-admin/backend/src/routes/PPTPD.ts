@@ -11,7 +11,7 @@ const router = Router();
 
 
 /******************************************************************************
- *                      Get All Users - "GET /api/device/temp"
+ *                      Get All Users - "GET /api/pptpd/config"
  ******************************************************************************/
 
 router.get('/config', async (req: Request, res: Response) => {

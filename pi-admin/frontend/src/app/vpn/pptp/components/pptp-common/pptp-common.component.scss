@@ -1,0 +1,29 @@
+:host {
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  flex: 1 1 auto;
+
+  ::ng-deep {
+    .mat-tab-body-wrapper {
+      flex: 1 1 auto;
+    }
+
+    .mat-tab-body-content {
+      background: #ffffff;
+      display: flex;
+      flex: 1 1 auto;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+  }
+}
+
+mat-tab-group {
+  flex: 1 1 auto;
+}
+
+mat-sidenav-content {
+  padding: 1rem;
+  display: flex;
+}

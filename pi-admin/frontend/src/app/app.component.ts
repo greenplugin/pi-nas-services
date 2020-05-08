@@ -58,11 +58,10 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        interval(5000).pipe(switchMap(() => this.apiService.get('device/temp')))
+        interval(1000).pipe(switchMap(() => this.apiService.get('device/temp')))
             .subscribe((response: { tempByZones: Temp[] }) => {
                 this.temp = response.tempByZones;
                 this.tempAvg = this.temp.reduce((result: number, item: Temp) => result + item.temp, 0) / this.temp.length;
-                console.info(this.temp);
             })
 
         this.loadContainers();

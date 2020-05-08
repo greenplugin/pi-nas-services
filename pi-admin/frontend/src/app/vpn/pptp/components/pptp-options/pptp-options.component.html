@@ -1,0 +1,13 @@
+<mat-list *ngIf="options">
+  <ng-container *ngFor="let line of options.lines">
+    <mat-list-item style="height: auto" *ngIf="line.type !== 'emptyLine'">
+      <p style="color: green" *ngIf="line.type === 'comment'">{{line.value}}</p>
+      <p *ngIf="line.type === 'option'">{{line.key}} &nbsp;
+        <input type="text" [(ngModel)]="line.value" [disabled]="line.disabled">
+        <span class="spacer"></span>
+        <mat-checkbox [(ngModel)]="line.disabled">disabled</mat-checkbox>
+      </p>
+    </mat-list-item>
+  </ng-container>
+
+</mat-list>

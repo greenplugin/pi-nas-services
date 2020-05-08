@@ -18,11 +18,16 @@ export class ChapSecretsConfigProvider {
                         value: ''
                     }
                 }
-                if (/^#/gm.test(line)) {
+                if (/^#[^#]/gm.test(line)) {
                     return {
                         type: "comment",
                         value: line
                     }
+                }
+                let disabled = false;
+                if (/^##/gm.test(line)) {
+                    line = line.replace(/^##/, '');
+                    disabled = true;
                 }
                 let [user, server = '*', password = '*', ip = '*'] = line.split(/\s+/);
                 return {
@@ -30,7 +35,8 @@ export class ChapSecretsConfigProvider {
                     user,
                     server,
                     password,
-                    ip
+                    ip,
+                    disabled
                 }
             })
 
