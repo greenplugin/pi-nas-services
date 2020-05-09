@@ -14,6 +14,7 @@ import { PptpStatisticsComponent } from './vpn/pptp/components/pptp-statistics/p
 import { PptpChapSecretsComponent } from './vpn/pptp/components/pptp-chap-secrets/pptp-chap-secrets.component';
 import { PptpConfigComponent } from './vpn/pptp/components/pptp-config/pptp-config.component';
 import {FormsModule} from "@angular/forms";
+import { DockerLogComponent } from './components/home/docker-log/docker-log.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import {FormsModule} from "@angular/forms";
         PptpOptionsComponent,
         PptpStatisticsComponent,
         PptpChapSecretsComponent,
-        PptpConfigComponent
+        PptpConfigComponent,
+        DockerLogComponent
     ],
     imports: [
         BrowserModule,

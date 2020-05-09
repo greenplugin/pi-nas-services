@@ -1,38 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {MainIconsService} from "./icons/main-icons.service";
 import {ApiService} from "./services/api.service";
-import {interval} from "rxjs";
-import {switchMap} from "rxjs/operators";
+import {filter} from "rxjs/operators";
+import {WebsocketService} from "./services/websocket.service";
+import {ContainerData} from "./docker/interfaces/container-data-interface";
 
 interface Temp {
     zone: string
     temp: number
-}
-
-interface MountPoint {
-    Type: string,
-    Source: string,
-    Destination: string,
-    Mode: string,
-    RW: boolean,
-    Propagation: string
-}
-
-interface ContainerData {
-    Id: string,
-    Names: any[],
-    Image: string,
-    ImageID: string,
-    Command: string,
-    Created: number,
-    Ports: any[],
-    Labels: any,
-    State: string,
-    Status: string,
-    HostConfig: any,
-    NetworkSettings: any,
-    Mounts: MountPoint,
-    restarting?: true
 }
 
 @Component({
@@ -50,7 +25,8 @@ export class AppComponent implements OnInit {
 
     constructor(
         private mainIconsService: MainIconsService,
-        private apiService: ApiService
+        private apiService: ApiService,
+        private wsService: WebsocketService
     ) {
         mainIconsService.registerIcon('pptpd', '/assets/pptpd.svg');
         mainIconsService.registerIcon('openvpn', '/assets/openvpn.svg');
@@ -58,9 +34,10 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        interval(1000).pipe(switchMap(() => this.apiService.get('device/temp')))
-            .subscribe((response: { tempByZones: Temp[] }) => {
-                this.temp = response.tempByZones;
+        this.wsService.wsMessages
+            .pipe(filter((message: any) => message.path === 'device/temp/all'))
+            .subscribe((message: { data: Temp[] }) => {
+                this.temp = message.data;
                 this.tempAvg = this.temp.reduce((result: number, item: Temp) => result + item.temp, 0) / this.temp.length;
             })
 

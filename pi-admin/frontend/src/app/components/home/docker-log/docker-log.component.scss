@@ -1,0 +1,12 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  flex: 1 1 auto;
+  background: #ffffff;
+  padding: 1rem;
+}
+
+p {
+  margin: .5rem
+}

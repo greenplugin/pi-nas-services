@@ -3,18 +3,18 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 
-import express, { Request, Response, NextFunction } from 'express';
-import { BAD_REQUEST } from 'http-status-codes';
+import express, {Request, Response, NextFunction} from 'express';
+import {BAD_REQUEST} from 'http-status-codes';
 import 'express-async-errors';
 
 import BaseRouter from './routes';
 import logger from '@shared/Logger';
+import expressWs from 'express-ws';
+import sockets from "./Sockets";
 
 
 // Init express
-const app = express();
-
-
+const {app} = expressWs(express());
 
 /************************************************************************************
  *                              Set basic express settings
@@ -47,6 +47,10 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 app.get('/', (req: Request, res: Response) => {
     res.json({result: 'BAD REQUEST'})
+});
+
+app.ws('/websocket', (ws, req) => {
+    sockets.push('/websocket', ws, req);
 });
 
 // Export express instance
