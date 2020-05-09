@@ -9,6 +9,7 @@ services:
       - ./pptpd/pptpd-options.conf:/etc/ppp/pptpd-options
       - ./pptpd/chap-secrets:/etc/ppp/chap-secrets
     privileged: true
+    network_mode: host
     restart: always
     ports:
       - 0.0.0.0:1723:1723

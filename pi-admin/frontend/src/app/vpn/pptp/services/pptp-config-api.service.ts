@@ -23,4 +23,16 @@ export class PptpConfigApiService {
     loadChapSecrets(): Observable<ChapSecretsInterface> {
         return this.apiService.get('pptpd/chap-secrets')
     }
+
+    saveConfig(config: ConfigDataInterface): Observable<any> {
+        return this.apiService.post('pptpd/config', {config})
+    }
+
+    saveOptions(config: ConfigDataInterface): Observable<any> {
+        return this.apiService.post('pptpd/options', {config})
+    }
+
+    saveChapSecrets(config: ChapSecretsInterface): Observable<any> {
+        return this.apiService.post('pptpd/chap-secrets', {config})
+    }
 }

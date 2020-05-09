@@ -21,6 +21,12 @@ router.get('/config', async (req: Request, res: Response) => {
 });
 
 router.post('/config', async (req: Request, res: Response) => {
+    const config = req.body.config;
+    if (!config) {
+        return res.status(400).json('Wrong config')
+    }
+
+    new DefaultConfigProvider('/config/pptpd/pptpd.conf').writeConfig(config);
 
     return res.status(OK).json({});
 });
@@ -33,9 +39,14 @@ router.get('/options', async (req: Request, res: Response) => {
 });
 
 router.post('/options', async (req: Request, res: Response) => {
-    const config = (new DefaultConfigProvider('/config/pptpd/pptpd-options')).readConfig()
+    const config = req.body.config;
+    if (!config) {
+        return res.status(400).json('Wrong config')
+    }
 
-    return res.status(OK).json(config);
+    new DefaultConfigProvider('/config/pptpd/pptpd-options').writeConfig(config);
+
+    return res.status(OK).json({});
 });
 
 router.get('/chap-secrets', async (req: Request, res: Response) => {
@@ -45,11 +56,15 @@ router.get('/chap-secrets', async (req: Request, res: Response) => {
 });
 
 router.post('/chap-secrets', async (req: Request, res: Response) => {
-    const config = (new ChapSecretsConfigProvider('/config/pptpd/chap-secrets')).readConfig()
+    const config = req.body.config;
+    if (!config) {
+        return res.status(400).json('Wrong config')
+    }
 
-    return res.status(OK).json(config);
+    new ChapSecretsConfigProvider('/config/pptpd/chap-secrets').writeConfig(config);
+
+    return res.status(OK).json({});
 });
-
 
 
 export default router;

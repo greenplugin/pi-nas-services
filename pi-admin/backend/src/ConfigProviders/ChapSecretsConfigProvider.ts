@@ -1,4 +1,4 @@
-import {readFileSync} from "fs";
+import {readFileSync, writeFileSync} from "fs";
 import {ChapSecretInterface, ChapSecretsInterface, EmptyOrCommentLine} from "./interfaces/ChapSecretsInterface";
 
 export class ChapSecretsConfigProvider {
@@ -26,7 +26,7 @@ export class ChapSecretsConfigProvider {
                 }
                 let disabled = false;
                 if (/^##/gm.test(line)) {
-                    line = line.replace(/^##/, '');
+                    line = line.replace(/^##\s*/, '');
                     disabled = true;
                 }
                 let [user, server = '*', password = '*', ip = '*'] = line.split(/\s+/);
@@ -46,7 +46,17 @@ export class ChapSecretsConfigProvider {
         }
     }
 
-    writeConfig(config: string) {
+    writeConfig(config: ChapSecretsInterface) {
+        const lines = config.lines.map((line: ChapSecretInterface | EmptyOrCommentLine): string => {
+            if (line.type === "chap-secret") {
+                const string = [line.user, line.server, line.password, line.ip].join(' \t\t\t');
+                return `${line.disabled ? '##' : ''}${string}`
+            }
 
+            return line.value
+        })
+        console.info(lines.join('\n'));
+
+        writeFileSync(this.path, lines.join('\n'), 'utf8')
     }
 }

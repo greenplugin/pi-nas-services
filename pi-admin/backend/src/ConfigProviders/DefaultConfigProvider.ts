@@ -1,4 +1,4 @@
-import {readFileSync} from "fs";
+import {readFileSync, writeFileSync} from "fs";
 import {
     ConfigCommentOrEmptyInterface,
     ConfigDataInterface,
@@ -31,7 +31,7 @@ export class DefaultConfigProvider {
                 let disabled = false;
 
                 if (/^##/gm.test(line)) {
-                    line = line.replace(/^##/, '');
+                    line = line.replace(/^##\s*/, '');
                     disabled = true;
                 }
 
@@ -50,7 +50,15 @@ export class DefaultConfigProvider {
         }
     }
 
-    writeConfig(config: string) {
+    writeConfig(config: ConfigDataInterface): void {
+        const lines = config.lines.map((line: ConfigLineInterface | ConfigCommentOrEmptyInterface): string => {
+            if (line.type === "option") {
+                return `${line.disabled ? '##' : ''}${line.key} \t\t\t${line.value}`
+            }
 
+            return line.value
+        })
+
+        writeFileSync(this.path, lines.join('\r\n'), 'utf8')
     }
 }
