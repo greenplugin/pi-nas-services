@@ -1,4 +1,4 @@
-FROM node:14.2.0-alpine3.10
+FROM node:14.2.0-stretch-slim
 
 WORKDIR /var/app/backend
 
