@@ -16,7 +16,9 @@ const convert = new Convert({
 
 export interface DockerLogEntry {
     message: string;
-    data: ContainerData
+    data: ContainerData;
+    id: string;
+    date: Date;
 }
 
 @Injectable({
@@ -27,18 +29,32 @@ export class DockerLogsService {
 
     constructor(ws: WebsocketService, colorByService: ColorByService) {
         const log = [];
-        ws.socket
-            .pipe(filter((message: any) => ['docker/logs/data', 'docker/logs/error'].indexOf(message.path) !== -1))
+        ws.socket.pipe(filter((message: any) => /docker\.logs\..+/gm.test(message.path)))
             .subscribe((message) => {
                 const color = colorByService.colorByString(message.data.id);
                 const html = (convert.toHtml(message.data.log) as string).replace(/color:#FFF/mg, 'color:#bdbdbd');
                 const containerName = (message.data.data.Names || ['undefined_container']).join(',').replace('/', '');
+                const date = new Date(message.data.date);
+                const lastLogItem = log.length ? log[log.length - 1] : null
                 log.push({
                     message: `<span style="color: ${color};">${containerName}</span>: ${html}`,
                     data: message.data.data,
                     id: message.data.id,
-                    date: message.data.date
+                    date
                 });
+                if (lastLogItem && lastLogItem.date.getTime() > date.getTime()) {
+                    console.info('need sort')
+                    log.sort((a: DockerLogEntry, b: DockerLogEntry) => {
+                        if (a.date.getTime() > b.date.getTime()) {
+                            return 1;
+                        }
+                        if (a.date.getTime() < b.date.getTime()) {
+                            return -1;
+                        }
+
+                        return 0
+                    })
+                }
                 console.info(message)
                 this.log.next(log);
             })

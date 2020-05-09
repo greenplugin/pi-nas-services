@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         this.wsService.wsMessages
-            .pipe(filter((message: any) => message.path === 'device/temp/all'))
+            .pipe(filter((message: any) => message.path === 'device.temp.all'))
             .subscribe((message: { data: Temp[] }) => {
                 this.temp = message.data;
                 this.tempAvg = this.temp.reduce((result: number, item: Temp) => result + item.temp, 0) / this.temp.length;

@@ -7,7 +7,7 @@ import sockets, {IncomingConnection} from '../Sockets';
 import {Container} from "node-docker-api/lib/container";
 import {IncomingMessage} from "http";
 import {first} from "rxjs/operators";
-import {interval} from "rxjs";
+import logger from "@shared/Logger";
 
 const docker = new Docker({socketPath: '/var/run/docker.sock'});
 const router = Router() as WsRouter;
@@ -61,45 +61,42 @@ sockets.connections.subscribe(async (connection: IncomingConnection) => {
             stdout: true,
             stderr: true,
             timestamps: true,
-            tail: 100,
+            tail: 50,
         }).then((stream: any) => {
-            if (stream instanceof IncomingMessage) {
-                stream.setEncoding('utf8')
-                try {
-                    stream.on('data', (info: Buffer) => {
-                        info.toString('utf8').split(/(?=\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{9}Z)/gm)
-                            .filter(item => (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{9}Z/gm.test(item)))
-                            // .map(item => item.replace(/^.{1}/, ''))
-                            .forEach(string => {
-                                connection.ws.send(JSON.stringify({
-                                    path: 'docker/logs/data',
-                                    data: {
-                                        id: container.id,
-                                        data: container.data,
-                                        log: string,
-                                        date: (string.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{9}Z/gm) || [])[0]
-                                    }
-                                }))
-                            })
-                    })
-                    stream.on('error', (err: any) => {
-                        connection.ws.send(JSON.stringify({
-                            path: 'docker/logs/error',
-                            data: {
+            if (!(stream instanceof IncomingMessage)) {
+                return;
+            }
+
+            connection.close.pipe(first()).subscribe(() => stream.destroy());
+            connection.error.pipe(first()).subscribe(() => stream.destroy());
+            connection.error.subscribe((error) => logger.error(error.message, error))
+
+            stream.on('data', (info: Buffer) => {
+                info.toString('utf8').split(/(?=\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{9}Z)/gm)
+                    .filter(item => (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{9}Z/gm.test(item)))
+                    // .map(item => item.replace(/^.{1}/, ''))
+                    .forEach(string => {
+                        connection.writer.write(
+                            'docker.logs.data.' + container.id,
+                            {
                                 id: container.id,
                                 data: container.data,
-                                error: err
+                                log: string.replace(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{9}Z/gm, ''),
+                                date: (string.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{9}Z/gm) || [])[0]
                             }
-                        }))
+                        );
                     })
-                } catch (e) {
-                    stream.destroy()
-                    console.info(e)
-                }
-
-                connection.close.pipe(first()).subscribe(() => stream.destroy());
-                connection.error.pipe(first()).subscribe(() => stream.destroy());
-            }
+            })
+            stream.on('error', (err: any) => {
+                connection.writer.write(
+                    'docker.logs.error.' + container.id,
+                    {
+                        id: container.id,
+                        data: container.data,
+                        error: err
+                    }
+                )
+            })
         })
     })
 })
