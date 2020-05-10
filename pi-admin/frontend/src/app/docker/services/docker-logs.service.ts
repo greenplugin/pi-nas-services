@@ -19,6 +19,7 @@ export interface DockerLogEntry {
     data: ContainerData;
     id: string;
     date: Date;
+    containerName: string;
 }
 
 @Injectable({
@@ -37,7 +38,8 @@ export class DockerLogsService {
                 const date = new Date(message.data.date);
                 const lastLogItem = log.length ? log[log.length - 1] : null
                 log.push({
-                    message: `<span style="color: ${color};">${containerName}</span>: ${html}`,
+                    containerName,
+                    message: `<span style="color: ${color}; min-width: 10rem; display: inline-block;">${containerName}:</span> ${html}`,
                     data: message.data.data,
                     id: message.data.id,
                     date
