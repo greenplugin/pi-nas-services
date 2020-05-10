@@ -42,4 +42,27 @@ services:
       - /storage/media/Video:/media:ro
     env_file:
       - ./minidlna/config/minidlna.env
+    ports:
+        - 1900/udp
+        - 8200/tcp
+    network_mode: host
+
+  deluge:
+    #build: ./deluge
+    container_name: deluge
+    image: linuxserver/deluge
+    restart: always
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      # - ./etc:/etc
+      - /storage/media/Video:/downloads
+      - /storage/media/Torrents:/torrents
+      - /storage/media/.incompleted:/incompleted
+      - ./deluge/config:/config
+    ports:
+      - 8112
+      - 58846
+      - 58946/udp
     network_mode: host
