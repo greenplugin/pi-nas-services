@@ -34,7 +34,6 @@ services:
     restart: always
     ports:
       - 4200:4200
-
   minidlna:
     build: ./minidlna
     container_name: minidlna

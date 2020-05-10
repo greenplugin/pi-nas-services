@@ -1,0 +1,44 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="switchUpdate()" matTooltip="Auto Update Container Info">
+      <mat-icon [class.rotated]="subscription && !subscription.closed">cached</mat-icon>
+    </button>
+    <button mat-icon-button
+            routerLink="./summary"
+            routerLinkActive
+            #summaryButton="routerLinkActive"
+            [color]="summaryButton.isActive ? 'primary': null"
+            matTooltip="summary">
+      <mat-icon>insert_chart</mat-icon>
+    </button>
+    <button mat-icon-button
+            routerLink="./log"
+            routerLinkActive
+            #logButton="routerLinkActive"
+            [color]="logButton.isActive ? 'primary': null"
+            matTooltip="Logs">
+      <mat-icon>list_alt</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <button mat-icon-button
+            routerLink="./console"
+            routerLinkActive
+            #consoleButton="routerLinkActive"
+            [color]="consoleButton.isActive ? 'primary': null"
+            matTooltip="Console">
+      <mat-icon svgIcon="app-console"></mat-icon>
+    </button>
+    <button mat-icon-button color="warn" *ngIf="!this.containerData || !this.containerData.restarting"
+            (click)="restartContainer()"
+            matTooltip="Restart Container">
+      <mat-icon>refresh</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" *ngIf="this.containerData && this.containerData.restarting"
+            matTooltip="Restart Container">
+      <mat-icon class="rotated-reverse">refresh</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="content">
+  <router-outlet></router-outlet>
+</div>

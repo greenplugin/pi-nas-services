@@ -20,6 +20,7 @@ export interface DockerLogEntry {
     id: string;
     date: Date;
     containerName: string;
+    html: string;
 }
 
 @Injectable({
@@ -40,12 +41,13 @@ export class DockerLogsService {
                 log.push({
                     containerName,
                     message: `<span style="color: ${color}; min-width: 10rem; display: inline-block;">${containerName}:</span> ${html}`,
+                    html,
                     data: message.data.data,
                     id: message.data.id,
                     date
                 });
                 if (lastLogItem && lastLogItem.date.getTime() > date.getTime()) {
-                    console.info('need sort')
+                    // console.info('need sort')
                     log.sort((a: DockerLogEntry, b: DockerLogEntry) => {
                         if (a.date.getTime() > b.date.getTime()) {
                             return 1;
@@ -57,7 +59,7 @@ export class DockerLogsService {
                         return 0
                     })
                 }
-                console.info(message)
+                // console.info(message)
                 this.log.next(log);
             })
     }

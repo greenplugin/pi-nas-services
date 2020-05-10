@@ -1,0 +1,4 @@
+<p *ngFor="let entry of logEntries">
+  <span style="color: darkgoldenrod">{{entry.date | date:'medium'}}</span>
+  <span [innerHTML]="this.getSafeHTML(entry.html)"></span>
+</p>

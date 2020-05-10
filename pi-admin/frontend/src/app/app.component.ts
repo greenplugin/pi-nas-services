@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {MainIconsService} from "./icons/main-icons.service";
 import {ApiService} from "./services/api.service";
 import {filter} from "rxjs/operators";
 import {WebsocketService} from "./services/websocket.service";
 import {ContainerData} from "./docker/interfaces/container-data-interface";
+import {DockerContainersService} from "./docker/services/docker-containers.service";
+import {RouterLinkActive} from "@angular/router";
 
 interface Temp {
     zone: string
@@ -15,22 +17,25 @@ interface Temp {
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit{
     title = 'frontend';
     sidenavOpened = true;
+    routerLinkActive: {[key: string]: RouterLinkActive}
+    disableAnimation = true;
 
-    private temp: Temp[]
-    private tempAvg: number;
-    private containers: ContainerData[] = []
+    public temp: Temp[]
+    public tempAvg: number;
+    public containers: ContainerData[] = []
 
     constructor(
         private mainIconsService: MainIconsService,
-        private apiService: ApiService,
-        private wsService: WebsocketService
+        private wsService: WebsocketService,
+        private dockerContainerService: DockerContainersService
     ) {
         mainIconsService.registerIcon('pptpd', '/assets/pptpd.svg');
         mainIconsService.registerIcon('openvpn', '/assets/openvpn.svg');
         mainIconsService.registerIcon('raspberry_color', '/assets/raspberry_color.svg');
+        mainIconsService.registerIcon('dlna', '/assets/dlna.svg');
     }
 
     ngOnInit(): void {
@@ -44,19 +49,19 @@ export class AppComponent implements OnInit {
         this.loadContainers();
     }
 
+    ngAfterViewInit(): void {
+        setTimeout(() => this.disableAnimation = false);
+    }
+
     restartContainer(container: ContainerData) {
         container.restarting = true;
-        this.apiService.post('docker/restart', {containerId: container.Id})
-            .subscribe((response: ContainerData) => {
-                this.loadContainers();
-                console.info(response);
-            })
+        this.dockerContainerService.restartContainer(container);
     }
 
     loadContainers() {
-        this.apiService.get('docker/all').subscribe((response: any) => {
-            this.containers = response.containersData
-        });
+        this.dockerContainerService
+            .getContainers()
+            .subscribe((containers: ContainerData[]) => this.containers = containers);
     }
 
     showInfo(container: ContainerData) {

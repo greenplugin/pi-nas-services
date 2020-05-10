@@ -1,0 +1,30 @@
+:host {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1 1 auto;
+  background: #ffffff;
+  margin-top: 1rem;
+  overflow: auto;
+  padding: 1rem;
+}
+
+.rotated {
+  animation: rotation 3s infinite cubic-bezier(0.5, -0.5, 0.5, 1.5);
+}
+
+.rotated-reverse {
+  animation: rotation 2s infinite cubic-bezier(0.5, -0, 0.5, 1) reverse;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(359deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 50 50"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="console.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata10">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1080"
+     id="namedview6"
+     showgrid="false"
+     inkscape:zoom="13.350176"
+     inkscape:cx="22.032733"
+     inkscape:cy="24.488014"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <path
+     inkscape:connector-curvature="0"
+     d="M 45.538128,4.899972 H 4.6373935 c -1.8826013,0 -3.4083928,1.5257914 -3.4083928,3.4083994 V 42.392312 c 0,1.882602 1.5257915,3.408393 3.4083928,3.408393 H 45.538128 c 1.882601,0 3.408393,-1.525791 3.408393,-3.408393 V 8.3083714 c 0,-1.882608 -1.525792,-3.4083994 -3.408393,-3.4083994 z M 8.0457866,28.758734 14.86258,21.941949 8.0457866,15.125157 11.454187,11.716764 21.679365,21.941949 11.454187,32.167127 Z M 35.312943,32.167127 H 21.679365 v -3.408393 h 13.633578 z"
+     id="path2-3"
+     style="stroke-width:0.05325615" />
+</svg>

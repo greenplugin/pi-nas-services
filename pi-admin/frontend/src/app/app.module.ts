@@ -15,6 +15,12 @@ import { PptpChapSecretsComponent } from './vpn/pptp/components/pptp-chap-secret
 import { PptpConfigComponent } from './vpn/pptp/components/pptp-config/pptp-config.component';
 import {FormsModule} from "@angular/forms";
 import { DockerLogComponent } from './components/home/docker-log/docker-log.component';
+import { DockerContainerCommonComponent } from './docker/components/docker-container-common/docker-container-common.component';
+import { DockerContainerLogComponent } from './docker/components/docker-container-log/docker-container-log.component';
+import { DockerContainerConsoleComponent } from './docker/components/docker-container-console/docker-container-console.component';
+import { DockerContainerSummaryComponent } from './docker/components/docker-container-summary/docker-container-summary.component';
+import { ConfDefaultComponent } from './components/conf-default/conf-default.component';
+import {DlnaCommonComponent} from "./multimedia/components/dlna-common/dlna-common.component";
 
 @NgModule({
     declarations: [
@@ -26,7 +32,13 @@ import { DockerLogComponent } from './components/home/docker-log/docker-log.comp
         PptpStatisticsComponent,
         PptpChapSecretsComponent,
         PptpConfigComponent,
-        DockerLogComponent
+        DockerLogComponent,
+        DockerContainerCommonComponent,
+        DockerContainerLogComponent,
+        DockerContainerConsoleComponent,
+        DockerContainerSummaryComponent,
+        ConfDefaultComponent,
+        DlnaCommonComponent
     ],
     imports: [
         BrowserModule,
