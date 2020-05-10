@@ -55,7 +55,6 @@ export class ChapSecretsConfigProvider {
 
             return line.value
         })
-        console.info(lines.join('\n'));
 
         writeFileSync(this.path, lines.join('\n'), 'utf8')
     }
