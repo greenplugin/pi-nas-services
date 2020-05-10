@@ -34,3 +34,17 @@ services:
     restart: always
     ports:
       - 4200:4200
+
+  minidlna:
+    build: ./minidlna
+    container_name: minidlna
+    restart: always
+    volumes:
+      - /storage/media/Video:/media:ro
+    environment:
+      - MINIDLNA_media_dir=V,/media
+      - MINIDLNA_friendly_name=MiniDLNA
+      - MINIDLNA_merge_media_dirs=yes
+      - MINIDLNA_force_sort_criteria= upnp:class, upnp:originalTrackNumber, dc:title
+      - MINIDLNA_root_container=B
+    network_mode: host
