@@ -46,7 +46,6 @@ services:
         - 1900/udp
         - 8200/tcp
     network_mode: host
-
   deluge:
     #build: ./deluge
     container_name: deluge

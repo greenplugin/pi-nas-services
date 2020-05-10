@@ -1,6 +1,12 @@
 <ng-container *ngIf="containerData">
   <h2>{{title}} <small>({{containerData.Status}})</small></h2>
-  <h4>Mount points:</h4>
+  <h4>Summary Info</h4>
+  <p style="display: flex">
+    <mat-icon style="margin-right: .5rem">local_laundry_service</mat-icon>
+    <b style="margin-right: .5rem">Image:</b> {{containerData.Image}} ({{containerData.ImageID}})
+  </p>
+  <mat-divider></mat-divider>
+  <h4>Mount Points:</h4>
   <mat-list>
     <mat-list-item *ngFor="let mount of containerData.Mounts">
       <mat-icon mat-list-icon>folder</mat-icon>

@@ -67,4 +67,8 @@ export class AppComponent implements OnInit, AfterViewInit{
     showInfo(container: ContainerData) {
         console.info(container);
     }
+
+    getContainerName(containerData: ContainerData){
+        return containerData.Names.join(', ').replace(/\//gm, '')
+    }
 }

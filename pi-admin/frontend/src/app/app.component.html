@@ -86,7 +86,7 @@
               <mat-icon *ngIf="rl.isActive">chevron_right</mat-icon>
               <mat-icon *ngIf="container.State === 'running' && !container.restarting">directions_run</mat-icon>
               <mat-icon *ngIf="container.State !== 'running' || container.restarting">hotel</mat-icon>
-              {{container.Image}}
+              {{getContainerName(container)}}
             </button>
             <button mat-icon-button color="warn" *ngIf="!container.restarting">
               <mat-icon style="margin:0" (click)="restartContainer(container)">refresh</mat-icon>
