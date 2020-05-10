@@ -20,6 +20,14 @@ export interface ContainerData {
     Status: string,
     HostConfig: any,
     NetworkSettings: any,
-    Mounts: MountPoint,
+    Mounts: MountPoint[],
     restarting?: true
+}
+
+
+export interface PortConfig {
+    IP: string
+    PrivatePort: number
+    PublicPort: number
+    Type: string
 }

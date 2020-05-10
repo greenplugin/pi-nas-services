@@ -67,7 +67,7 @@ export class DockerContainerCommonComponent implements OnInit, OnDestroy {
 
     resumeUpdate() {
         this.subscription = interval(2000).subscribe(() => {
-            this.dockerContainersService.getContainers()
+            this.dockerContainersService.loadContainers()
         })
     }
 

@@ -1,1 +1,20 @@
-<p>docker-container-summary works!</p>
+<ng-container *ngIf="containerData">
+  <h2>{{title}} <small>({{containerData.Status}})</small></h2>
+  <h4>Mount points:</h4>
+  <mat-list>
+    <mat-list-item *ngFor="let mount of containerData.Mounts">
+      <mat-icon mat-list-icon>folder</mat-icon>
+      <div mat-line>Source: {{mount.Source}}</div>
+      <div mat-line>Destination: {{mount.Destination}}</div>
+      <div mat-line>
+        <mat-chip-list>
+          <mat-chip>Mode: {{mount.Mode}}</mat-chip>
+          <mat-chip>Type: {{mount.Type}}</mat-chip>
+          <mat-chip>Propagation: {{mount.Propagation}}</mat-chip>
+        </mat-chip-list>
+      </div>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+
+</ng-container>

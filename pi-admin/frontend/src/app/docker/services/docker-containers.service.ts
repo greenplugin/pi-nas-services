@@ -14,7 +14,7 @@ export class DockerContainersService {
         this.loadContainers()
     }
 
-    private loadContainers(): Observable<ContainerData[]> {
+    public loadContainers(): Observable<ContainerData[]> {
         this.apiService.get('docker/all').subscribe((response: any) => {
             this.containers.next(response.containersData)
         });
