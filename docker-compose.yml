@@ -40,10 +40,6 @@ services:
     restart: always
     volumes:
       - /storage/media/Video:/media:ro
-    environment:
-      - MINIDLNA_media_dir=V,/media
-      - MINIDLNA_friendly_name=MiniDLNA
-      - MINIDLNA_merge_media_dirs=yes
-      - MINIDLNA_force_sort_criteria= upnp:class, upnp:originalTrackNumber, dc:title
-      - MINIDLNA_root_container=B
+    env_file:
+      - ./minidlna/config/minidlna.env
     network_mode: host

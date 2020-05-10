@@ -3,10 +3,12 @@ import {OK} from "http-status-codes";
 
 import {Router as WsRouter} from 'express-ws';
 import sockets, {IncomingConnection} from '../Sockets';
-import {Container} from "node-docker-api/lib/container";
+import container, {Container} from "node-docker-api/lib/container";
 import logger from "@shared/Logger";
 import {LogListener} from "../Docker/LogListener";
 import docker from "../Docker/Docker";
+import {IncomingMessage} from "http";
+import {CommandRunner} from "../Docker/CommandRunner";
 
 const router = Router() as WsRouter;
 
@@ -14,7 +16,7 @@ const logListeners: Map<string, WeakMap<IncomingConnection, LogListener>> = new 
 const connections: Array<IncomingConnection> = [];
 
 /******************************************************************************
- *                      Get All Users - "GET /api/docker/all"
+ *                      Get All containers - "GET /api/docker/all"
  ******************************************************************************/
 
 router.get('/all', async (req: Request, res: Response) => {
@@ -24,13 +26,39 @@ router.get('/all', async (req: Request, res: Response) => {
 });
 
 /******************************************************************************
+ *                      Get All ENV variables from container - "GET /api/docker/env/:id"
+ ******************************************************************************/
+
+router.get('/env/:id', async (req: Request, res: Response) => {
+    const id = req.params.id;
+    if (!id) {
+        return res.status(400).json('container id should be provided')
+    }
+    const container = await docker.container.get(id);
+    const result = await (new CommandRunner(container)).run('printenv')
+    return res.status(OK).json({result});
+});
+
+
+router.post('/env/:id', async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const command = req.body.command;
+    if (!id || !command) {
+        return res.status(400).json('container id should be provided')
+    }
+    const container = await docker.container.get(id);
+    const result = await (new CommandRunner(container)).run('printenv')
+    return res.status(OK).json({result});
+});
+
+/******************************************************************************
  *                      Restart Container By Id - "POST /api/docker/restart"
  ******************************************************************************/
 
 router.post('/restart', async (req: Request, res: Response) => {
     const id = req.body.containerId;
     if (!id) {
-        return res.status(400).json('container name should be provided')
+        return res.status(400).json('container id should be provided')
     }
     let container = await docker.container.get(id);
     container = await docker.container.list((await container.restart()).id)
