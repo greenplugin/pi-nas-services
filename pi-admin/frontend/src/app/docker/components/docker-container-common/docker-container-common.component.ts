@@ -71,6 +71,14 @@ export class DockerContainerCommonComponent implements OnInit, OnDestroy {
         })
     }
 
+    stopContainer(){
+        this.dockerContainersService.stopContainer(this.containerData);
+    }
+
+    startContainer(){
+        this.dockerContainersService.startContainer(this.containerData);
+    }
+
     ngOnDestroy(): void {
         this.pauseUpdate()
     }

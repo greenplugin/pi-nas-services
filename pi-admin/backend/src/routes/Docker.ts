@@ -20,7 +20,7 @@ const connections: Array<IncomingConnection> = [];
  ******************************************************************************/
 
 router.get('/all', async (req: Request, res: Response) => {
-    const containers = await docker.container.list();
+    const containers = await docker.container.list({all: true});
     const containersData = containers.map(container => container.data)
     return res.status(OK).json({containersData});
 });
@@ -42,14 +42,43 @@ router.get('/env/:id', async (req: Request, res: Response) => {
 
 router.post('/env/:id', async (req: Request, res: Response) => {
     const id = req.params.id;
-    const command = req.body.command;
-    if (!id || !command) {
+    if (!id) {
         return res.status(400).json('container id should be provided')
     }
     const container = await docker.container.get(id);
     const result = await (new CommandRunner(container)).run('printenv')
     return res.status(OK).json({result});
 });
+
+router.post('/stop/:id', async (req: Request, res: Response) => {
+    const id = req.params.id;
+    if (!id) {
+        return res.status(400).json('container id should be provided')
+    }
+    const container = await docker.container.get(id);
+    const result = await container.stop();
+    return res.status(OK).json({containerId: result.id});
+});
+
+router.post('/start/:id', async (req: Request, res: Response) => {
+    const id = req.params.id;
+    if (!id) {
+        return res.status(400).json('container id should be provided')
+    }
+    const container = await docker.container.get(id);
+    const result = await container.start();
+    const containerListenerMap = logListeners.get(container.id)
+    if (containerListenerMap) {
+        await connections.forEach((connection: IncomingConnection) => {
+            const listenerMap: LogListener | undefined = containerListenerMap.get(connection);
+            if (listenerMap) {
+                listenerMap.restart(container)
+            }
+        })
+    }
+    return res.status(OK).json({containerId: result.id});
+});
+
 
 /******************************************************************************
  *                      Restart Container By Id - "POST /api/docker/restart"

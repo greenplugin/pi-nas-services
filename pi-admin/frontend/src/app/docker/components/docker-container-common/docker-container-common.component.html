@@ -40,6 +40,12 @@
             matTooltip="Restart Container">
       <mat-icon class="rotated-reverse">refresh</mat-icon>
     </button>
+    <button mat-icon-button color="warn" (click)="stopContainer()" *ngIf="containerData.State === 'running'">
+      <mat-icon style="margin:0">stop</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" (click)="startContainer()" *ngIf="containerData.State !== 'running'">
+      <mat-icon style="margin:0">play_arrow</mat-icon>
+    </button>
   </mat-toolbar-row>
 </mat-toolbar>
 <div class="content">

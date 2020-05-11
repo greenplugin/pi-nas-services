@@ -40,7 +40,36 @@ export class DockerContainersService {
         return result;
     }
 
-    getContainerName(containerData: ContainerData){
+    stopContainer(container: ContainerData) {
+        const result: Subject<ContainerData[]> = new Subject();
+        this.apiService.post('docker/stop/' + container.Id, {})
+            .subscribe((response: ContainerData) => {
+                this.loadContainers()
+                    .pipe(first())
+                    .subscribe((contaners: ContainerData[]) => {
+                        result.next(contaners);
+                        result.complete();
+                    });
+            })
+        return result;
+    }
+
+    startContainer(container: ContainerData) {
+        const result: Subject<ContainerData[]> = new Subject();
+        this.apiService.post('docker/start/' + container.Id, {})
+            .subscribe((response: ContainerData) => {
+                this.loadContainers()
+                    .pipe(first())
+                    .subscribe((contaners: ContainerData[]) => {
+                        result.next(contaners);
+                        result.complete();
+                    });
+            })
+        return result;
+    }
+
+
+    getContainerName(containerData: ContainerData) {
         return containerData.Names.join(', ').replace(/\//gm, '')
     }
 }
