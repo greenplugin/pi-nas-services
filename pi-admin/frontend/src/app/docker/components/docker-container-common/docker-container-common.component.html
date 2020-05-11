@@ -28,12 +28,15 @@
             matTooltip="Console">
       <mat-icon svgIcon="app-console"></mat-icon>
     </button>
-    <button mat-icon-button color="warn" *ngIf="!this.containerData || !this.containerData.restarting"
+    <button mat-icon-button color="accent" (click)="showInfo(containerData)">
+      <mat-icon style="margin:0">info</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" *ngIf="!containerData || !containerData.restarting"
             (click)="restartContainer()"
             matTooltip="Restart Container">
       <mat-icon>refresh</mat-icon>
     </button>
-    <button mat-icon-button color="warn" *ngIf="this.containerData && this.containerData.restarting"
+    <button mat-icon-button color="warn" *ngIf="containerData && containerData.restarting"
             matTooltip="Restart Container">
       <mat-icon class="rotated-reverse">refresh</mat-icon>
     </button>

@@ -5,10 +5,48 @@
     <mat-icon style="margin-right: .5rem">local_laundry_service</mat-icon>
     <b style="margin-right: .5rem">Image:</b> {{containerData.Image}} ({{containerData.ImageID}})
   </p>
+  <p style="display: flex">
+    <mat-icon style="margin-right: .5rem" svgIcon="app-console"></mat-icon>
+    <b style="margin-right: .5rem">Command:</b> {{containerData.Command}}
+  </p>
+  <!--  <p style="display: flex">-->
+  <!--    <mat-icon style="margin-right: .5rem">device_hub</mat-icon>-->
+  <!--    <b style="margin-right: .5rem">Command:</b> {{containerData.NetworkSettings.Networks}}-->
+  <!--  </p>-->
+  <mat-divider></mat-divider>
+  <h4>Networks:</h4>
+  <mat-list *ngIf="networks">
+    <mat-list-item *ngFor="let network of networks">
+      <mat-icon mat-list-icon>device_hub</mat-icon>
+      <div mat-line><b>{{network.key}}</b></div>
+      <div mat-line>MacAddress: {{network.network.MacAddress}}</div>
+      <div mat-line>Gateway: {{network.network.Gateway}}; IPAddress: {{network.network.IPAddress}}</div>
+      <div mat-line>NetworkID: {{network.network.NetworkID}}</div>
+      <div mat-line>EndpointID: {{network.network.EndpointID}}</div>
+    </mat-list-item>
+  </mat-list>
+  <mat-divider></mat-divider>
+  <h4 *ngIf="containerData.Ports">Ports:</h4>
+  <mat-list *ngIf="containerData.Ports">
+    <mat-list-item *ngFor="let port of containerData.Ports">
+      <mat-icon mat-list-icon>settings_ethernet</mat-icon>
+      <div mat-line><b style="display: flex; align-items: center">
+        {{port.Type}}
+        <mat-icon>more_vert</mat-icon>
+        {{port.PrivatePort}}
+        <mat-icon>double_arrow</mat-icon>
+        {{port.PublicPort}}</b></div>
+      <div mat-line>{{port.IP}}</div>
+      <div mat-line *ngIf="port.Type === 'tcp'">
+        <a mat-raised-button color="primary" target="_blank"
+           [href]="host + ':' + port.PublicPort">Try open in web browser</a>
+      </div>
+    </mat-list-item>
+  </mat-list>
   <mat-divider></mat-divider>
   <h4>Mount Points:</h4>
   <mat-list>
-    <mat-list-item *ngFor="let mount of containerData.Mounts">
+    <mat-list-item *ngFor="let mount of containerData.Mounts; trackBy:getMountPointKey">
       <mat-icon mat-list-icon>folder</mat-icon>
       <div mat-line>Source: {{mount.Source}}</div>
       <div mat-line>Destination: {{mount.Destination}}</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ContainerData} from "../../../../docker/interfaces/container-data-interface";
 
 @Component({
   selector: 'app-pptp-common',
@@ -11,5 +12,4 @@ export class PptpCommonComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

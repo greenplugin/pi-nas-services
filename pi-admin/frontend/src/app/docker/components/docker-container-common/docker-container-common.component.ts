@@ -66,12 +66,16 @@ export class DockerContainerCommonComponent implements OnInit, OnDestroy {
     }
 
     resumeUpdate() {
-        this.subscription = interval(2000).subscribe(() => {
+        this.subscription = interval(7000).subscribe(() => {
             this.dockerContainersService.loadContainers()
         })
     }
 
     ngOnDestroy(): void {
         this.pauseUpdate()
+    }
+
+    showInfo(container: ContainerData) {
+        console.info(container);
     }
 }

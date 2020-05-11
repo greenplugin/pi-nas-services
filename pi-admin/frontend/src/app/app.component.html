@@ -88,17 +88,6 @@
               <mat-icon *ngIf="container.State !== 'running' || container.restarting">hotel</mat-icon>
               {{getContainerName(container)}}
             </button>
-            <button mat-icon-button color="warn" *ngIf="!container.restarting">
-              <mat-icon style="margin:0" (click)="restartContainer(container)">refresh</mat-icon>
-            </button>
-            <button mat-icon-button color="warn" *ngIf="container.restarting">
-              <mat-progress-spinner
-                      style="zoom: 0.3"
-                      color="primary"
-                      mode="indeterminate"
-              >
-              </mat-progress-spinner>
-            </button>
             <button mat-icon-button color="primary" (click)="showInfo(container)">
               <mat-icon style="margin:0">info</mat-icon>
             </button>

@@ -61,7 +61,7 @@ services:
       - /storage/media/.incompleted:/incompleted
       - ./deluge/config:/config
     ports:
-      - 8112
-      - 58846
-      - 58946/udp
+      - 8112:8112
+      - 58846:58846
+      - 58946:58946/udp
     network_mode: host

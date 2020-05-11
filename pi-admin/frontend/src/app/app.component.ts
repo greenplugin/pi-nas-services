@@ -20,7 +20,6 @@ interface Temp {
 export class AppComponent implements OnInit, AfterViewInit{
     title = 'frontend';
     sidenavOpened = true;
-    routerLinkActive: {[key: string]: RouterLinkActive}
     disableAnimation = true;
 
     public temp: Temp[]
@@ -53,19 +52,10 @@ export class AppComponent implements OnInit, AfterViewInit{
         setTimeout(() => this.disableAnimation = false);
     }
 
-    restartContainer(container: ContainerData) {
-        container.restarting = true;
-        this.dockerContainerService.restartContainer(container);
-    }
-
     loadContainers() {
         this.dockerContainerService
             .getContainers()
             .subscribe((containers: ContainerData[]) => this.containers = containers);
-    }
-
-    showInfo(container: ContainerData) {
-        console.info(container);
     }
 
     getContainerName(containerData: ContainerData){

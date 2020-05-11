@@ -9,17 +9,19 @@ export interface MountPoint {
 
 export interface ContainerData {
     Id: string,
-    Names: any[],
+    Names: string[],
     Image: string,
     ImageID: string,
     Command: string,
     Created: number,
-    Ports: any[],
-    Labels: any,
+    Ports: PortConfig[],
+    Labels: string[],
     State: string,
     Status: string,
-    HostConfig: any,
-    NetworkSettings: any,
+    HostConfig: {
+        NetworkMode: string
+    },
+    NetworkSettings: NetworkSettings,
     Mounts: MountPoint[],
     restarting?: true
 }
@@ -30,4 +32,28 @@ export interface PortConfig {
     PrivatePort: number
     PublicPort: number
     Type: string
+}
+
+
+export interface NetworkSettings {
+    Networks: {
+        [key: string]: Network
+    }
+}
+
+
+export interface Network {
+    Aliases: any;
+    DriverOpts: any;
+    EndpointID: string;
+    Gateway: string;
+    GlobalIPv6Address: string;
+    GlobalIPv6PrefixLen: number;
+    IPAMConfig: any;
+    IPAddress: string;
+    IPPrefixLen: number;
+    IPv6Gateway: string;
+    Links: any;
+    MacAddress: string;
+    NetworkID: string;
 }

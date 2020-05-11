@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ContainerData} from "../../interfaces/container-data-interface";
+import {ContainerData, MountPoint, Network} from "../../interfaces/container-data-interface";
 import {map} from "rxjs/operators";
 import {DockerContainersService} from "../../services/docker-containers.service";
 import {ActivatedRoute} from "@angular/router";
@@ -11,7 +11,9 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class DockerContainerSummaryComponent implements OnInit {
     public containerData: ContainerData;
+    public networks: Array<{ network: Network, key: string }> = []
     public title: string;
+    public host = `http://${window.location.hostname}`
 
     constructor(private dockerContainersService: DockerContainersService, route: ActivatedRoute) {
         route.parent.params.subscribe(params => {
@@ -28,10 +30,17 @@ export class DockerContainerSummaryComponent implements OnInit {
         if (containerData) {
             this.containerData = containerData;
             this.title = containerData.Names.join(', ').replace(/\//gm, '')
+            this.networks = Object.keys(this.containerData.NetworkSettings.Networks).map((key) => ({
+                network: this.containerData.NetworkSettings.Networks[key],
+                key
+            }))
         }
     }
 
     ngOnInit() {
     }
 
+    getMountPointKey(index: number, point: MountPoint) {
+        return JSON.stringify(point)
+    }
 }
