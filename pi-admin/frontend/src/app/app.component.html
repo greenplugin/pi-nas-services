@@ -88,9 +88,6 @@
               <mat-icon *ngIf="container.State !== 'running' || container.restarting">hotel</mat-icon>
               {{getContainerName(container)}}
             </button>
-            <button mat-icon-button color="primary" (click)="showInfo(container)">
-              <mat-icon style="margin:0">info</mat-icon>
-            </button>
           </div>
         </div>
       </mat-expansion-panel>
