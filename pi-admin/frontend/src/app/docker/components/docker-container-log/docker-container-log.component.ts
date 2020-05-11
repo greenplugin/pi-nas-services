@@ -26,7 +26,6 @@ export class DockerContainerLogComponent implements OnInit {
                 .pipe(map((logEntries: DockerLogEntry[]) => logEntries.filter((entry: DockerLogEntry) => entry.id === this.id)))
                 .subscribe((logEntries: DockerLogEntry[]) => {
                     this.logEntries = logEntries.reverse();
-                    console.info(params)
                 })
         })
     }
@@ -37,9 +36,5 @@ export class DockerContainerLogComponent implements OnInit {
 
     getSafeHTML(string) {
         return this.sanitizer.bypassSecurityTrustHtml(string);
-    }
-
-    reverse(arr: Array<any>) {
-        return arr.reverse()
     }
 }
