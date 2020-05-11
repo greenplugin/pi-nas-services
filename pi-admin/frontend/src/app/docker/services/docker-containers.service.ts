@@ -39,4 +39,8 @@ export class DockerContainersService {
             })
         return result;
     }
+
+    getContainerName(containerData: ContainerData){
+        return containerData.Names.join(', ').replace(/\//gm, '')
+    }
 }

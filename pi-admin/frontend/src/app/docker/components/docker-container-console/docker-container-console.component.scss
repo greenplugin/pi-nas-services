@@ -1,0 +1,56 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex: 1 1 auto;
+
+  ::ng-deep {
+    .mat-tab-body-wrapper {
+      flex: 1 1 auto;
+    }
+
+    .mat-tab-body-content {
+      background: #ffffff;
+      display: flex;
+      flex: 1 1 auto;
+      box-sizing: border-box;
+    }
+
+    .mat-tab-label-content {
+      display: flex;
+      width: 100%;
+    }
+  }
+}
+
+.content {
+  flex: 1 1 auto;
+  position: relative;
+  display: flex;
+}
+
+.therm {
+  padding-left: 1rem;
+  flex: 1 1 auto;
+  position: relative;
+
+  > span {
+    content: "";
+    position: absolute;
+    background: #18444b;
+    width: 1rem;
+    height: 100%;
+    left: 0;
+  }
+}
+
+mat-tab-group {
+  flex: 1 1 auto;
+}
+
+.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+}

@@ -28,6 +28,8 @@
     "morgan": "^1.10.0",
     "node-docker-api": "^1.1.22",
     "rxjs": "^6.5.5",
+    "utf8-to-ansi": "^1.0.3",
+    "websocket-stream": "^5.5.2",
     "winston": "^3.2.1",
     "ws": "^7.2.5"
   },

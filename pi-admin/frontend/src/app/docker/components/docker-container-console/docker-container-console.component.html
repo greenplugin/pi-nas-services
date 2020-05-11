@@ -1,1 +1,31 @@
-<p>docker-container-console works!</p>
+<mat-toolbar>
+  <mat-toolbar-row>
+    <button mat-button *ngFor="let command of commands" color="primary" style="margin-right: 1rem"
+            (click)="openTerminal(command)">
+      <mat-icon svgIcon="app-console"></mat-icon>
+      {{command}}</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="content">
+  <mat-tab-group [@.disabled]="true" color="primary" *ngIf="terminals.length">
+    <mat-tab *ngFor="let terminal of terminals">
+      <ng-template mat-tab-label style="display: flex; width: 100%;">
+        {{terminal}}
+        <div class="spacer"></div>
+        <button mat-icon-button (click)="closeTerminal(terminal)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </ng-template>
+      <div class="therm">
+        <span></span>
+        <app-docker-terminal [id]="this.id" [command]="terminal"
+                             (disconnect)="closeTerminal(terminal)"></app-docker-terminal>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+  <div class="centered">
+    <h2 *ngIf="!terminals.length">No Connections found. Please open the connection.</h2>
+  </div>
+</div>
+

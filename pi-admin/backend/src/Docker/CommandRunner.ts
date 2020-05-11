@@ -1,5 +1,4 @@
 import {Container} from "node-docker-api/lib/container";
-import {stream} from "winston";
 import {IncomingMessage} from "http";
 
 export class CommandRunner {
@@ -31,5 +30,25 @@ export class CommandRunner {
                 })
                 stream.on('error', reject)
             }))).split('\n');
+    }
+
+    public async follow(command: string | Array<string> = 'sh'): Promise<IncomingMessage> {
+        if ('string' === typeof command) {
+            command = command.split(/\s+/)
+        }
+        return await this.container.exec
+            .create({
+                AttachStdout: true,
+                AttachStderr: true,
+                AttachStdin: true,
+                DetachKeys: "ctrl-p,ctrl-q,ctrl-i,ctrl-z",
+                Privileged: true,
+                Tty: true,
+                Cmd: command
+            })
+            .then(exec => {
+                return exec.start({Detach: false})
+            })
+            .then((stream: any): IncomingMessage => stream);
     }
 }

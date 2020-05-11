@@ -11,6 +11,7 @@ import BaseRouter from './routes';
 import logger from '@shared/Logger';
 import expressWs from 'express-ws';
 import sockets from "./Sockets";
+import {Terminal} from "./WS/Terminal";
 
 
 // Init express
@@ -51,6 +52,10 @@ app.get('/', (req: Request, res: Response) => {
 
 app.ws('/websocket', (ws, req) => {
     sockets.push('/websocket', ws, req);
+});
+
+app.ws('/terminal-websocket/:command/:id', (ws, req) => {
+    new Terminal(ws, req);
 });
 
 // Export express instance

@@ -21,6 +21,8 @@ import { DockerContainerConsoleComponent } from './docker/components/docker-cont
 import { DockerContainerSummaryComponent } from './docker/components/docker-container-summary/docker-container-summary.component';
 import { ConfDefaultComponent } from './components/conf-default/conf-default.component';
 import {DlnaCommonComponent} from "./multimedia/components/dlna-common/dlna-common.component";
+import {NgTerminalModule} from "ng-terminal";
+import { DockerTerminalComponent } from './docker/components/docker-terminal/docker-terminal.component';
 
 @NgModule({
     declarations: [
@@ -38,7 +40,8 @@ import {DlnaCommonComponent} from "./multimedia/components/dlna-common/dlna-comm
         DockerContainerConsoleComponent,
         DockerContainerSummaryComponent,
         ConfDefaultComponent,
-        DlnaCommonComponent
+        DlnaCommonComponent,
+        DockerTerminalComponent
     ],
     imports: [
         BrowserModule,
@@ -46,7 +49,8 @@ import {DlnaCommonComponent} from "./multimedia/components/dlna-common/dlna-comm
         BrowserAnimationsModule,
         MaterialModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
+        NgTerminalModule
     ],
     providers: [],
     bootstrap: [AppComponent]
