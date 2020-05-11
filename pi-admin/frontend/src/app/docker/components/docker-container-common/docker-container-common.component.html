@@ -1,4 +1,4 @@
-<mat-toolbar>
+<mat-toolbar *ngIf="containerData">
   <mat-toolbar-row>
     <button mat-icon-button (click)="switchUpdate()" matTooltip="Auto Update Container Info">
       <mat-icon [class.rotated]="subscription && !subscription.closed">cached</mat-icon>
