@@ -5,9 +5,9 @@
 FROM alpine
 
 # install minidlna
-RUN apk --no-cache add minidlna
-
-# Add config file
-#ADD minidlna.conf /etc/minidlna.conf
+RUN \
+   apk update && \
+   apk upgrade && \
+   apk add bash minidlna ffmpegthumbnailer inotify-tools sqlite
 
 ENTRYPOINT [ "/usr/sbin/minidlnad", "-S" ]

@@ -41,9 +41,8 @@ services:
     container_name: minidlna
     restart: always
     volumes:
+      - ./minidlna/minidlna.conf:/etc/minidlna.conf
       - /storage/media/Video:/media:ro
-    env_file:
-      - ./minidlna/config/minidlna.env
     ports:
         - 1900/udp
         - 8200/tcp
