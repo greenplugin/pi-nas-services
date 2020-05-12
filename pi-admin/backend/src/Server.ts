@@ -13,8 +13,6 @@ import expressWs from 'express-ws';
 import sockets from "./Sockets";
 import {Terminal} from "./WS/Terminal";
 
-
-// Init express
 const {app} = expressWs(express());
 
 /************************************************************************************

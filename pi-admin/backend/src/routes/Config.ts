@@ -1,13 +1,15 @@
-// Init shared
 import {Request, Response, Router} from "express";
 import {OK} from "http-status-codes";
-import * as os from "os";
-import {readdirSync, statSync} from "fs";
+import {readdirSync, readFileSync, statSync, writeFileSync} from "fs";
 import {join} from "path";
+import multer from 'multer';
+
+const upload = multer()
 
 const router = Router();
 
 interface ConfigFile {
+    id: string;
     path: string;
     name: string;
     type: 'file';
@@ -30,6 +32,7 @@ function getConfigTree(path: string, name: string): ConfigThree {
                 return getConfigTree(fullPath, fileName)
             }
             return {
+                id: Buffer.from(fullPath).toString('hex'),
                 path: fullPath,
                 name: fileName,
                 type: 'file',
@@ -51,16 +54,29 @@ function getConfigTree(path: string, name: string): ConfigThree {
 
 
 router.get('/list', async (req: Request, res: Response) => {
-    const tree = getConfigTree('/config', 'config');
-    return res.status(OK).json({tree});
+    return res.status(OK).json(getConfigTree('/config', 'config'));
 });
 
-router.get('/file/:name', async (req: Request, res: Response) => {
-
+router.get('/file/:id', async (req: Request, res: Response) => {
+    const id = req.params.id;
+    if (!id) {
+        return res.status(400).json('id should be provided')
+    }
+    const name = Buffer.from(id, 'hex').toString('utf8');
+    console.info(name);
+    res.charset = 'utf8';
+    return res.status(OK).send(readFileSync(name, 'utf8'));
 });
 
-router.post('/file/:name', async (req: Request, res: Response) => {
-
+router.post('/file/:id', upload.none(), async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const content = req.body.fileContent
+    if (!id || !content) {
+        return res.status(400).json('id should be provided')
+    }
+    const name = Buffer.from(id, 'hex').toString('utf8');
+    writeFileSync(name, content, {encoding: 'utf8'})
+    return res.status(OK).json({});
 });
 
 

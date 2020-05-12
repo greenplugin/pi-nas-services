@@ -6,6 +6,7 @@ import {WebsocketService} from "./services/websocket.service";
 import {ContainerData} from "./docker/interfaces/container-data-interface";
 import {DockerContainersService} from "./docker/services/docker-containers.service";
 import {RouterLinkActive} from "@angular/router";
+import {StorageService} from "./services/storage.service";
 
 interface Temp {
     zone: string
@@ -17,16 +18,26 @@ interface Temp {
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, AfterViewInit{
+export class AppComponent implements OnInit, AfterViewInit {
     title = 'frontend';
-    sidenavOpened = true;
+    shadowSideNavOpened = true;
     disableAnimation = true;
+
+    get sidenavOpened() {
+        return this.shadowSideNavOpened;
+    }
+
+    set sidenavOpened(value: boolean) {
+        this.shadowSideNavOpened = value;
+        this.storageService.setItem('app-sidenav-state', value ? 'true' : 'false');
+    }
 
     public temp: Temp[]
     public tempAvg: number;
     public containers: ContainerData[] = []
 
     constructor(
+        private storageService: StorageService,
         private mainIconsService: MainIconsService,
         private wsService: WebsocketService,
         private dockerContainerService: DockerContainersService
@@ -35,6 +46,7 @@ export class AppComponent implements OnInit, AfterViewInit{
         mainIconsService.registerIcon('openvpn', '/assets/openvpn.svg');
         mainIconsService.registerIcon('raspberry_color', '/assets/raspberry_color.svg');
         mainIconsService.registerIcon('dlna', '/assets/dlna.svg');
+        this.shadowSideNavOpened = this.storageService.getItem('app-sidenav-state') === 'true';
     }
 
     ngOnInit(): void {
@@ -58,7 +70,7 @@ export class AppComponent implements OnInit, AfterViewInit{
             .subscribe((containers: ContainerData[]) => this.containers = containers);
     }
 
-    getContainerName(containerData: ContainerData){
+    getContainerName(containerData: ContainerData) {
         return containerData.Names.join(', ').replace(/\//gm, '')
     }
 }

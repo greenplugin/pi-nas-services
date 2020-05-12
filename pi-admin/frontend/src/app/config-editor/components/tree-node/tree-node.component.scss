@@ -1,0 +1,18 @@
+:host {
+
+  > .items {
+    margin-left: 1rem;
+  }
+}
+
+
+.changed {
+  color: #0ab1ff;
+  user-select: none;
+}
+
+
+.item {
+  display: flex;
+  align-items: center;
+}

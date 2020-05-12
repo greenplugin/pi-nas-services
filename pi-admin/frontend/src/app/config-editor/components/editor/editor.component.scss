@@ -1,0 +1,35 @@
+:host {
+  flex: 1 1 auto;
+  display: flex;
+  position: relative;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: #1a1a1a;
+  //> div {
+  //  flex: 1 1 auto;
+  //  display: flex;
+  //  background: black;
+  //}
+}
+
+.container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.loader {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.16);
+}

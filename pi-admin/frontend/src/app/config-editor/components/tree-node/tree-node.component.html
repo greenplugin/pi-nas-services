@@ -1,0 +1,20 @@
+<div style="color: #9a9a9a" *ngIf="tree">
+  <mat-icon style="zoom: .7">folder</mat-icon>
+  {{tree.name}}</div>
+<div class="items" *ngIf="tree">
+  <div *ngFor="let item of tree.items">
+    <app-tree-node (select)="this.select.emit($event)"
+                   (upload)="this.upload.emit($event)"
+                   *ngIf="item.type === 'dir'" [tree]="item"></app-tree-node>
+    <div class="item" *ngIf="item.type === 'file'">
+      <button [class.changed]="item.isChanged" style="padding: .3rem 1rem; line-height: 15px" mat-button
+              (dblclick)="this.select.emit(item)">{{item.name}}</button>
+      <button *ngIf="item.isChanged" style="margin-left: 1rem; zoom: .8; color: #5db9ef"
+              (click)="this.upload.emit(item)"
+              mat-icon-button>
+        <mat-icon>cloud_upload</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+

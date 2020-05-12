@@ -23,11 +23,18 @@ import { ConfDefaultComponent } from './components/conf-default/conf-default.com
 import {DlnaCommonComponent} from "./multimedia/components/dlna-common/dlna-common.component";
 import {NgTerminalModule} from "ng-terminal";
 import { DockerTerminalComponent } from './docker/components/docker-terminal/docker-terminal.component';
-import { CommonComponent } from './config-editor/common/common.component';
-import { TreeComponent } from './config-editor/tree/tree.component';
-import { EditorComponent } from './config-editor/editor/editor.component';
-import { TreeNodeComponent } from './config-editor/tree-node/tree-node.component';
-import {MonacoEditorModule} from "ngx-monaco-editor";
+import { TreeComponent } from './config-editor/components/tree/tree.component';
+import { EditorComponent } from './config-editor/components/editor/editor.component';
+import { TreeNodeComponent } from './config-editor/components/tree-node/tree-node.component';
+import {MonacoEditorModule, NgxMonacoEditorConfig} from "ngx-monaco-editor";
+import {AngularResizedEventModule} from "angular-resize-event";
+import { EditorCommonComponent } from './config-editor/components/editor-common/editor-common.component';
+
+const monacoConfig: NgxMonacoEditorConfig = {
+    baseUrl: 'assets',
+    defaultOptions: { scrollBeyondLastLine: false },
+};
+
 
 @NgModule({
     declarations: [
@@ -47,10 +54,10 @@ import {MonacoEditorModule} from "ngx-monaco-editor";
         ConfDefaultComponent,
         DlnaCommonComponent,
         DockerTerminalComponent,
-        CommonComponent,
         TreeComponent,
         EditorComponent,
-        TreeNodeComponent
+        TreeNodeComponent,
+        EditorCommonComponent
     ],
     imports: [
         BrowserModule,
@@ -60,7 +67,8 @@ import {MonacoEditorModule} from "ngx-monaco-editor";
         HttpClientModule,
         FormsModule,
         NgTerminalModule,
-        MonacoEditorModule.forRoot()
+        MonacoEditorModule.forRoot(monacoConfig),
+        AngularResizedEventModule
     ],
     providers: [],
     bootstrap: [AppComponent]

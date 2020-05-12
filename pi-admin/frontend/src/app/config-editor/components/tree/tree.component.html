@@ -1,0 +1,9 @@
+<div *ngIf="configTree">
+  <div *ngFor="let item of configTree.items">
+    <app-tree-node (select)="this.select.emit($event)"
+                   (upload)="this.upload.emit($event)"
+                   *ngIf="item.type === 'dir'"
+                   [tree]="item"></app-tree-node>
+    <p *ngIf="item.type === 'file'">{{item.name}}</p>
+  </div>
+</div>

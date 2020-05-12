@@ -1,8 +1,8 @@
 import {ConfigFile} from "./config-file";
 
-export interface ConfigThree {
+export interface ConfigTree {
     path: string;
     name: string;
     type: 'dir';
-    items: Array<ConfigFile | ConfigThree>;
+    items: Array<ConfigFile | ConfigTree>;
 }

@@ -1,0 +1,10 @@
+<div class="container" (resized)="editorContainerResizeEvent.emit()">
+  <ngx-monaco-editor (onInit)="onInitEditor($event)"
+                     style="height: 100%; width: 100%;"
+                     [options]="editorOptions"
+                     [(ngModel)]="internalCode"></ngx-monaco-editor>
+
+</div>
+<div class="loader" *ngIf="!editor">
+  <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+</div>

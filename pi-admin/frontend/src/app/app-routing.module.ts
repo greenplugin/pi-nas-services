@@ -7,7 +7,7 @@ import {DockerContainerSummaryComponent} from "./docker/components/docker-contai
 import {DockerContainerLogComponent} from "./docker/components/docker-container-log/docker-container-log.component";
 import {DockerContainerConsoleComponent} from "./docker/components/docker-container-console/docker-container-console.component";
 import {DlnaCommonComponent} from "./multimedia/components/dlna-common/dlna-common.component";
-import {CommonComponent as ConfigEditorCommon} from "./config-editor/common/common.component";
+import {EditorCommonComponent} from "./config-editor/components/editor-common/editor-common.component";
 
 
 const routes: Routes = [
@@ -44,7 +44,7 @@ const routes: Routes = [
     },
     {
         path: 'config-editor',
-        component: ConfigEditorCommon
+        component: EditorCommonComponent
     },
     {
         path: 'dlna',

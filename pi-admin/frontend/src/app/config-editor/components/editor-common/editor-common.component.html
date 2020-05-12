@@ -1,0 +1,22 @@
+<div class="sidebar">
+  <app-tree (select)="open($event)"
+            (upload)="upload($event)"></app-tree>
+</div>
+<div class="editors">
+  <div class="inner">
+    <mat-tab-group [@.disabled]="true" color="primary" *ngIf="filesArray.length"
+                   [selectedIndex]="selectedTab"
+                   (selectedIndexChange)="selectTab($event)">
+      <mat-tab *ngFor="let file of filesArray">
+        <ng-template mat-tab-label style="display: flex; width: 100%;">
+          {{file.options.name}}
+          <div class="spacer"></div>
+          <button mat-icon-button (click)="closeFile(file)">
+            <mat-icon>close</mat-icon>
+          </button>
+        </ng-template>
+        <app-editor (save)="upload(file.options)" [code]="file.content" (codeChange)="fileChanged(file, $event)"></app-editor>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

@@ -20,6 +20,8 @@ services:
       - ./pptpd/pptpd.conf:/config/pptpd/pptpd.conf
       - ./pptpd/pptpd-options.conf:/config/pptpd/pptpd-options
       - ./pptpd/chap-secrets:/config/pptpd/chap-secrets
+      - ./minidlna/config:/config/minidlna
+      - ./deluge/config:/config/deluge
       - ./pi-admin/backend:/var/app/backend
       - /var/run/docker.sock:/var/run/docker.sock
     privileged: true
