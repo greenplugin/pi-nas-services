@@ -23,6 +23,11 @@ import { ConfDefaultComponent } from './components/conf-default/conf-default.com
 import {DlnaCommonComponent} from "./multimedia/components/dlna-common/dlna-common.component";
 import {NgTerminalModule} from "ng-terminal";
 import { DockerTerminalComponent } from './docker/components/docker-terminal/docker-terminal.component';
+import { CommonComponent } from './config-editor/common/common.component';
+import { TreeComponent } from './config-editor/tree/tree.component';
+import { EditorComponent } from './config-editor/editor/editor.component';
+import { TreeNodeComponent } from './config-editor/tree-node/tree-node.component';
+import {MonacoEditorModule} from "ngx-monaco-editor";
 
 @NgModule({
     declarations: [
@@ -41,7 +46,11 @@ import { DockerTerminalComponent } from './docker/components/docker-terminal/doc
         DockerContainerSummaryComponent,
         ConfDefaultComponent,
         DlnaCommonComponent,
-        DockerTerminalComponent
+        DockerTerminalComponent,
+        CommonComponent,
+        TreeComponent,
+        EditorComponent,
+        TreeNodeComponent
     ],
     imports: [
         BrowserModule,
@@ -50,7 +59,8 @@ import { DockerTerminalComponent } from './docker/components/docker-terminal/doc
         MaterialModule,
         HttpClientModule,
         FormsModule,
-        NgTerminalModule
+        NgTerminalModule,
+        MonacoEditorModule.forRoot()
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -1,0 +1,18 @@
+:host {
+  flex: 1 1 auto;
+  display: flex;
+}
+
+.sidebar {
+  width: 20rem;
+  height: 100%;
+  background: #18444b;
+}
+
+
+.editors{
+  height: 100%;
+  display: flex;
+  flex: 1 1 auto;
+  background: #26262d;
+}
