@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {debounceTime} from "rxjs/operators";
 
 @Component({
@@ -8,11 +8,12 @@ import {debounceTime} from "rxjs/operators";
 })
 export class EditorComponent implements OnInit {
     @Input() code: string
+    @Input() language: string
     @Output() codeChange: EventEmitter<string> = new EventEmitter<string>();
     @Output() save: EventEmitter<string> = new EventEmitter<string>();
     public editorContainerResizeEvent: EventEmitter<any> = new EventEmitter<any>()
     public editor: any;
-    public editorOptions = {theme: 'vs-dark', language: 'ini', automaticLayout: true};
+    public editorOptions = {theme: 'vs-dark', language: this.language || 'ini', automaticLayout: true};
 
     get internalCode() {
         return this.code;
@@ -27,6 +28,7 @@ export class EditorComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.editorOptions = {theme: 'vs-dark', language: this.language || 'ini', automaticLayout: true}
     }
 
     onInitEditor(editor) {
@@ -39,5 +41,7 @@ export class EditorComponent implements OnInit {
         editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, () => {
             this.save.emit(this.code)
         });
+
+        this.editorOptions.theme = 'vs-light'
     }
 }

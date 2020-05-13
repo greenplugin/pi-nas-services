@@ -3,6 +3,7 @@ import {ConfigService} from "../../services/config.service";
 import {ConfigFile} from "../../interfaces/config-file";
 import {FullFile} from "../../interfaces/full-file";
 import {FullFiles} from "../../interfaces/full-files";
+import {extensionsMap} from "./extensions";
 
 @Component({
     selector: 'app-editor-common',
@@ -12,6 +13,7 @@ import {FullFiles} from "../../interfaces/full-files";
 export class EditorCommonComponent implements OnInit {
     files: FullFiles = {};
     selectedTab: number = 0;
+    extensionsMap: { [key: string]: string } = extensionsMap
 
     get filesArray(): FullFile[] {
         const array = Object.values(this.files).filter(file => !file.closed);
@@ -39,7 +41,8 @@ export class EditorCommonComponent implements OnInit {
                 initialContent: '',
                 content: '',
                 options: file,
-                closed: false
+                closed: false,
+                suggestedLanguage: this.extensionsMap[file.name.replace(/.+(?=\.\w+$)/mg, '')] || 'ini'
             }
             this.loadFile(fullFile)
         } else {

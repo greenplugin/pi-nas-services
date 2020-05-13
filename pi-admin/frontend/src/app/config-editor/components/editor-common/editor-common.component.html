@@ -15,7 +15,10 @@
             <mat-icon>close</mat-icon>
           </button>
         </ng-template>
-        <app-editor (save)="upload(file.options)" [code]="file.content" (codeChange)="fileChanged(file, $event)"></app-editor>
+        <app-editor [language]="file.suggestedLanguage"
+                    (save)="upload(file.options)"
+                    [code]="file.content"
+                    (codeChange)="fileChanged(file, $event)"></app-editor>
       </mat-tab>
     </mat-tab-group>
   </div>

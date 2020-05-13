@@ -17,13 +17,16 @@ services:
     build: ./pi-admin/backend
     container_name: pi_admin_backend
     volumes:
+      - ./pi-admin/backend:/var/app/backend
+      - /var/run/docker.sock:/var/run/docker.sock
       - ./pptpd/pptpd.conf:/config/pptpd/pptpd.conf
       - ./pptpd/pptpd-options.conf:/config/pptpd/pptpd-options
       - ./pptpd/chap-secrets:/config/pptpd/chap-secrets
       - ./minidlna/config:/config/minidlna
-      - ./deluge/config:/config/deluge
-      - ./pi-admin/backend:/var/app/backend
-      - /var/run/docker.sock:/var/run/docker.sock
+      - ./pi-admin/backend/config:/config/admin/config
+      - ./pi-admin/backend/env:/config/admin/env
+      - ./pi-admin/frontend/src/environments/:/config/admin/frontend
+      - ./docker-compose.yml:/config/host/docker/docker-compose.yml
     privileged: true
     restart: always
     ports:
@@ -44,8 +47,8 @@ services:
       - ./minidlna/config/minidlna.conf:/etc/minidlna.conf
       - /storage/media/Video:/media:ro
     ports:
-        - 1900/udp
-        - 8200/tcp
+      - 1900/udp
+      - 8200/tcp
     network_mode: host
   deluge:
     #build: ./deluge
