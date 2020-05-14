@@ -1,0 +1,18 @@
+menu:
+  multimedia:
+    items:
+      torrent-transmission:
+        type: configuration
+        title: Transmission
+        svgIcon: device_hub
+        route: transmission-config
+        configFiles:
+          - transmission_main
+
+      torrent-transmission-panel:
+        type: iframe
+        route: transmission
+        title: 'Open NextCloud'
+        path: http://someUrl.home
+        icon: device_hub
+

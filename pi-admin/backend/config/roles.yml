@@ -1,0 +1,17 @@
+roles:
+  superuser:
+    name: root
+    rules: ~
+    ##### auth methods
+    #
+    #  - LDAP
+    #  - Kerberos
+    #  - DataBase
+    #  - CredentialFile
+    authentication: CredentialFile
+    ##### auth methods
+    #
+    #  - password
+    #  - RSA
+    authenticationCredential: password
+

@@ -1,0 +1,13 @@
+menu:
+  multimedia:
+    title: 'Multimedia services'
+    icon: subscriptions
+    items:
+      minidlna:
+        type: configuration
+        title: MiniDlna
+        svgIcon: dlna
+        route: minidlna
+        configFiles:
+          - minidlna_main
+          - minidlna_environment

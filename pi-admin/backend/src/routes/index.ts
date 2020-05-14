@@ -4,6 +4,7 @@ import Device from './Device'
 import Docker from './Docker'
 import PPTPD from './PPTPD'
 import {Config} from "./Config";
+import {App} from "./App";
 
 // Init router and path
 const router = Router();
@@ -14,6 +15,7 @@ router.use('/device', Device);
 router.use('/docker', Docker);
 router.use('/pptpd', PPTPD);
 router.use('/config', Config);
+router.use('/config', App);
 
 // Export the base-router
 export default router;
