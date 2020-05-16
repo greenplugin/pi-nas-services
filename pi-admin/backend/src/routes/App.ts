@@ -16,7 +16,6 @@ const menuSettingsProvider = new SettingsProvider(new YamlFileReader('./config')
  *                      Get All Users - "GET /api/app/menu"
  ******************************************************************************/
 router.get('/menu', async (req: Request, res: Response) => {
-
     return res.status(OK).json(menuSettingsProvider.load());
 });
 

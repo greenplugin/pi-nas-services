@@ -4,33 +4,23 @@ config-files:
     path: minidlna/config/minidlna.conf
     title: minidlna.conf
     description: 'MniDlna main config'
-    parser: @parsers.smarty_minidlna
+    parser: smarty_minidlna
   minidlna_environment:
     path: minidlna/config/minidlna.env
     title: minidlna.env
     description: 'MniDlna container environment'
-    parser: @parser.env_default
+    parser: env_default
 
   # transmission
   transmission_main:
     path: minidlna/config/minidlna.conf
     title: minidlna.conf
     description: 'MniDlna main config'
-    parser: @parsers.smarty_minidlna
+    parser: smarty_minidlna
 
   # nextcloud
   nextcloud_main:
     path: minidlna/config/minidlna.conf
     title: minidlna.conf
     description: 'MniDlna main config'
-    parser: @parsers.smarty_minidlna
-
-parsers:
-  env_default:
-    provider: env
-    disableSymbol: '##'
-    comment: '#'
-  smarty_minidlna:
-    provider: smarty
-    disableSymbol: '##'
-    comment: '#'
+    parser: smarty_minidlna

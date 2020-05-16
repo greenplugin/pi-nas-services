@@ -4,8 +4,8 @@ import {OK} from "http-status-codes";
 import {readdirSync, readFileSync, statSync} from "fs";
 import {join} from 'path'
 import * as os from "os";
-import {DefaultConfigProvider} from "../ConfigProviders/DefaultConfigProvider";
-import {ChapSecretsConfigProvider} from "../ConfigProviders/ChapSecretsConfigProvider";
+import {DefaultConfigProvider} from "../ConfigProviders/Providers/DefaultConfigProvider";
+import {ChapSecretsConfigProvider} from "../ConfigProviders/Providers/ChapSecretsConfigProvider";
 
 const router = Router();
 

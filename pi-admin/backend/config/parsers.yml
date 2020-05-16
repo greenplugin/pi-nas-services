@@ -1,0 +1,13 @@
+parsers:
+  env_default:
+    provider: env
+    disableSymbol: '##'
+    comment: '#'
+  smarty_minidlna:
+    provider: smarty
+    disableSymbol: '##'
+    comment: '#'
+  default:
+    provider: default
+    disableSymbol: '##'
+    comment: '#'
