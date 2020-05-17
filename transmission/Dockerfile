@@ -10,4 +10,4 @@ RUN apk --no-cache --no-progress upgrade && \
                 transmission-daemon transmission-cli tzdata
 
 
-CMD /usr/bin/transmission-daemon --foreground --no-portmap --log-error --config-dir /var/lib/transmission/config
+CMD /usr/bin/transmission-daemon --foreground --no-portmap --log-error --config-dir /var/transmission/config
