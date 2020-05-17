@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ConfigDataInterface} from "../../../../interfaces/config/ConfigDataInterface";
+import {ConfigDataInterface} from "../../../config/ConfigDataInterface";
 import {PptpConfigApiService} from "../../services/pptp-config-api.service";
 
 @Component({

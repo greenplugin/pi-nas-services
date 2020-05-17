@@ -1,4 +1,4 @@
-config-files:
+config_files:
   # minidlna
   minidlna_main:
     path: minidlna/config/minidlna.conf

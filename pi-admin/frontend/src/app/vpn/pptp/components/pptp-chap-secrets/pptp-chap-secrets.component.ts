@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PptpConfigApiService} from "../../services/pptp-config-api.service";
-import {ChapSecretsInterface} from "../../../../interfaces/config/ChapSecretsInterface";
+import {ChapSecretsInterface} from "../../../config/ChapSecretsInterface";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({

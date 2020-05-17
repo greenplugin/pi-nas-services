@@ -1,7 +1,6 @@
 import {ConfigProviderInterface} from "../Interfaces/ConfigProviderInterface";
 import {ConfigDataInterface} from "../Contracts/ConfigDataInterface";
-import {ConfigParserTypeEnum} from "../enum/ConfigParserTypeEnum";
-import {EmptyOrCommentLine} from "../../../../frontend/src/app/interfaces/config/ChapSecretsInterface";
+import {ConfigCommentOrEmptyLineInterface} from "../Contracts/ConfigCommentOrEmptyLineInterface";
 
 export abstract class AbstractConfigProvider implements ConfigProviderInterface {
     public path: string
@@ -26,7 +25,7 @@ export abstract class AbstractConfigProvider implements ConfigProviderInterface 
         return /^##[^#]/gm.test(line)
     }
 
-    protected getEmptyLineOrComment(line: string): EmptyOrCommentLine | null {
+    protected getEmptyLineOrComment(line: string): ConfigCommentOrEmptyLineInterface | null {
         if (this.isEmptyLine(line)) {
             return {
                 type: "emptyLine",

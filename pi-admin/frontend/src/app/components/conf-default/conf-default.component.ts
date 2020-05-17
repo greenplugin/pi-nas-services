@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ConfigDataInterface} from "../../interfaces/config/ConfigDataInterface";
+import {ConfigDataInterface} from "../../vpn/config/ConfigDataInterface";
 
 @Component({
     selector: 'app-conf-default',

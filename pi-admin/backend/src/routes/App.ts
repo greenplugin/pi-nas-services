@@ -6,11 +6,11 @@ import {first} from "rxjs/operators";
 import logger from "@shared/Logger";
 import {Thermal} from "../Device/Thermal";
 import {SettingsProvider} from "../Settings/SettingsProvider";
-import {YamlFileReader} from "../Settings/YamlFileReader";
+import {fileReader} from "../SettingsFileReader";
 
 const router = Router();
 
-const menuSettingsProvider = new SettingsProvider(new YamlFileReader('./config'), 'menu');
+const menuSettingsProvider = new SettingsProvider(fileReader, 'menu');
 
 /******************************************************************************
  *                      Get All Users - "GET /api/app/menu"
@@ -18,7 +18,6 @@ const menuSettingsProvider = new SettingsProvider(new YamlFileReader('./config')
 router.get('/menu', async (req: Request, res: Response) => {
     return res.status(OK).json(menuSettingsProvider.load());
 });
-
 
 const thermalZones = new Thermal().getZones();
 

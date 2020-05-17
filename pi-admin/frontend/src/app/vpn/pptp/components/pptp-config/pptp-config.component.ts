@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PptpConfigApiService} from "../../services/pptp-config-api.service";
-import {ConfigDataInterface} from "../../../../interfaces/config/ConfigDataInterface";
+import {ConfigDataInterface} from "../../../config/ConfigDataInterface";
 
 @Component({
     selector: 'app-pptp-config',

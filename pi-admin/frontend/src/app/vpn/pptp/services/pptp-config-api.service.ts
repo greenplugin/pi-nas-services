@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from "../../../services/api.service";
 import {Observable} from "rxjs";
-import {ConfigDataInterface} from "../../../interfaces/config/ConfigDataInterface";
-import {ChapSecretsInterface} from "../../../interfaces/config/ChapSecretsInterface";
+import {ConfigDataInterface} from "../../config/ConfigDataInterface";
+import {ChapSecretsInterface} from "../../config/ChapSecretsInterface";
 
 @Injectable({
     providedIn: 'root'
