@@ -1,18 +1,7 @@
 version: "3.6"
 
 services:
-  pptpd:
-    build: ./pptpd
-    container_name: pptpd
-    volumes:
-      - ./pptpd/pptpd.conf:/etc/pptpd.conf
-      - ./pptpd/pptpd-options.conf:/etc/ppp/pptpd-options
-      - ./pptpd/chap-secrets:/etc/ppp/chap-secrets
-    privileged: true
-    network_mode: host
-    restart: always
-    ports:
-      - 0.0.0.0:1723:1723
+
   pi_admin_backend:
     build: ./pi-admin/backend
     container_name: pi_admin_backend
@@ -50,10 +39,9 @@ services:
       - 1900/udp
       - 8200/tcp
     network_mode: host
-  deluge:
-    #build: ./deluge
-    container_name: deluge
-    image: linuxserver/deluge
+  transmission:
+    build: ./transmission
+    container_name: transmission
     restart: always
     environment:
       - PUID=1000
@@ -63,9 +51,11 @@ services:
       - /storage/media/Video:/downloads
       - /storage/media/Torrents:/torrents
       - /storage/media/.incompleted:/incompleted
-      - ./deluge/config:/config
+      - ./transmission/settings.json:/var/transmission/config/settings.json
     ports:
-      - 8112:8112
-      - 58846:58846
-      - 58946:58946/udp
+      #Web
+      - 9091:9091
+
+      - 51413:51413
+      - 51413:51413/udp
     network_mode: host
