@@ -16,7 +16,7 @@ const menuSettingsProvider = new SettingsProvider(fileReader, 'menu');
  *                      Get All Users - "GET /api/app/menu"
  ******************************************************************************/
 router.get('/menu', async (req: Request, res: Response) => {
-    return res.status(OK).json(menuSettingsProvider.load());
+    return res.status(OK).json(menuSettingsProvider.load(false));
 });
 
 const thermalZones = new Thermal().getZones();

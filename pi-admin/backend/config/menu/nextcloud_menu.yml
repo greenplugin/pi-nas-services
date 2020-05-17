@@ -2,6 +2,7 @@ menu:
   multimedia:
     items:
       nextcloud:
+        type: configuration
         title: NextCloud
         icon: cloud
         route: next-cloud
@@ -10,5 +11,5 @@ menu:
       nextcloud-external:
         type: external
         title: 'Open NextCloud'
-        path: http://someUrl.home
+        path: https://nextcloud.com/
         icon: cloud_circle

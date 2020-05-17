@@ -1,23 +1,19 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {PptpCommonComponent} from "./vpn/pptp/components/pptp-common/pptp-common.component";
 import {DockerLogComponent} from "./components/home/docker-log/docker-log.component";
 import {DockerContainerCommonComponent} from "./docker/components/docker-container-common/docker-container-common.component";
 import {DockerContainerSummaryComponent} from "./docker/components/docker-container-summary/docker-container-summary.component";
 import {DockerContainerLogComponent} from "./docker/components/docker-container-log/docker-container-log.component";
 import {DockerContainerConsoleComponent} from "./docker/components/docker-container-console/docker-container-console.component";
-import {DlnaCommonComponent} from "./multimedia/components/dlna-common/dlna-common.component";
 import {EditorCommonComponent} from "./config-editor/components/editor-common/editor-common.component";
+import {ServiceSettingsCommonComponent} from "./service-settings/components/service-settings-common/service-settings-common.component";
+import {ServiceIframeCommonComponent} from "./service-iframe/components/service-iframe-common/service-iframe-common.component";
 
 
 const routes: Routes = [
     {
         path: '',
         component: DockerLogComponent
-    },
-    {
-        path: 'pptp',
-        component: PptpCommonComponent
     },
     {
         path: 'docker/container/:id',
@@ -47,8 +43,12 @@ const routes: Routes = [
         component: EditorCommonComponent
     },
     {
-        path: 'dlna',
-        component: DlnaCommonComponent
+        path: 'configuration/:menuId',
+        component: ServiceSettingsCommonComponent
+    },
+    {
+        path: 'external-service/:menuId',
+        component: ServiceIframeCommonComponent
     }
 ];
 

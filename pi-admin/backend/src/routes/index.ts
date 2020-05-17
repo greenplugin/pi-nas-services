@@ -15,7 +15,7 @@ router.use('/device', Device);
 router.use('/docker', Docker);
 router.use('/options', PPTPD);
 router.use('/config', Config);
-router.use('/config', App);
+router.use('/app', App);
 
 // Export the base-router
 export default router;

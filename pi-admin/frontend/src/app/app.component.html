@@ -18,99 +18,90 @@
 </mat-toolbar>
 <mat-sidenav-container class="full-size-container">
   <mat-sidenav mode="side" [(opened)]="sidenavOpened" [@.disabled]="disableAnimation">
-      <!--      network services    -->
-      <mat-expansion-panel [expanded]="pptpLinkActive.isActive">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <mat-icon>vpn_lock</mat-icon>
-            VPN {{pptpLinkActive.isActive}}
-          </mat-panel-title>
-          <mat-panel-description>
-            edit vpn settings
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="menu">
-          <button mat-button routerLink="/pptp"
+    <!--      network services    -->
+    <mat-expansion-panel *ngFor="let menuSection of menuItems"
+                         routerLinkActive
+                         #linkActive="routerLinkActive"
+                         [expanded]="linkActive.isActive">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>{{menuSection.icon}}</mat-icon>
+          {{menuSection.title}}
+        </mat-panel-title>
+        <mat-panel-description></mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="menu">
+        <ng-container *ngFor="let item of menuSection.items">
+          <button mat-button
+                  *ngIf="item.type !== 'external'"
                   routerLinkActive
-                  #pptpLinkActive="routerLinkActive"
-                  [color]="pptpLinkActive.isActive ? 'primary': null"
-                  >
-            <mat-icon svgIcon="pptpd"></mat-icon>
-            PPTP
-          </button>
-          <button mat-button>
-            <mat-icon svgIcon="openvpn"></mat-icon>
-            OpenVpn
-          </button>
-          <button mat-button>L2P/IPSec</button>
-          <button mat-button>IPSec</button>
-        </div>
-      </mat-expansion-panel>
-      <!--      media services      -->
-      <mat-expansion-panel [expanded]="dlnaLinkActive.isActive">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <mat-icon>subscriptions</mat-icon>
-            Multimedia services
-          </mat-panel-title>
-          <mat-panel-description>
-            Edit Multimedia services
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="menu">
-          <button mat-button routerLink="/dlna"
-                  routerLinkActive
-                  #dlnaLinkActive="routerLinkActive"
-                  [color]="dlnaLinkActive.isActive ? 'primary': null"
+                  [routerLink]="[getRouterLink(item)]"
+                  #linkActive="routerLinkActive"
+                  [color]="linkActive.isActive ? 'primary': null"
           >
-            <mat-icon svgIcon="dlna"></mat-icon>
-            DLNA
+            <mat-icon [svgIcon]="item.svgIcon">{{item.icon}}</mat-icon>
+            {{item.title}}
+          </button>
+
+          <a mat-button
+             *ngIf="item.type === 'external'"
+             routerLinkActive
+             [href]="item.path"
+             target="_blank"
+             #linkActive="routerLinkActive"
+             [color]="linkActive.isActive ? 'primary': null"
+          >
+            <mat-icon [svgIcon]="item.svgIcon">{{item.icon}}</mat-icon>
+            {{item.title}}
+            <mat-icon style="zoom: .6" color="accent">launch</mat-icon>
+          </a>
+        </ng-container>
+      </div>
+    </mat-expansion-panel>
+    <!--      Docker Containers       -->
+    <mat-expansion-panel routerLinkActive
+                         #containerLincActive="routerLinkActive"
+                         [expanded]="containerLincActive.isActive">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon svgIcon="docker"></mat-icon>
+          Docker
+        </mat-panel-title>
+        <mat-panel-description>Container settings</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="menu">
+        <div class="button-group" *ngFor="let container of containers">
+          <button mat-button
+                  routerLinkActive
+                  #rl="routerLinkActive"
+                  [color]="rl.isActive ? 'primary': null"
+                  [routerLink]="['docker', 'container', container.Id]">
+            <mat-icon *ngIf="!rl.isActive">arrow_right</mat-icon>
+            <mat-icon *ngIf="rl.isActive">chevron_right</mat-icon>
+            <mat-icon *ngIf="container.State === 'running' && !container.restarting">directions_run</mat-icon>
+            <mat-icon *ngIf="container.State !== 'running' || container.restarting">hotel</mat-icon>
+            {{getContainerName(container)}}
           </button>
         </div>
-      </mat-expansion-panel>
-      <!--      Docker Containers       -->
-      <mat-expansion-panel [expanded]="containerLincActive.isActive">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <mat-icon svgIcon="docker"></mat-icon>
-            Docker
-          </mat-panel-title>
-          <mat-panel-description>Container settings</mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="menu" routerLinkActive
-             #containerLincActive="routerLinkActive">
-          <div class="button-group" *ngFor="let container of containers">
-            <button mat-button
-                    routerLinkActive
-                    #rl="routerLinkActive"
-                    [color]="rl.isActive ? 'primary': null"
-                    [routerLink]="['docker', 'container', container.Id]">
-              <mat-icon *ngIf="!rl.isActive">arrow_right</mat-icon>
-              <mat-icon *ngIf="rl.isActive">chevron_right</mat-icon>
-              <mat-icon *ngIf="container.State === 'running' && !container.restarting">directions_run</mat-icon>
-              <mat-icon *ngIf="container.State !== 'running' || container.restarting">hotel</mat-icon>
-              {{getContainerName(container)}}
-            </button>
-          </div>
-        </div>
-      </mat-expansion-panel>
-      <!--      system settings     -->
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <mat-icon svgIcon="raspberry_color"></mat-icon>
-            HOST
-          </mat-panel-title>
-          <mat-panel-description>
-            <ng-container *ngIf="tempAvg">({{tempAvg}}°C avg)</ng-container>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="menu">
-          <mat-list>
-            <mat-list-item *ngFor="let t of temp">{{t.zone}}: {{t.temp}}</mat-list-item>
-          </mat-list>
-        </div>
-      </mat-expansion-panel>
+      </div>
+    </mat-expansion-panel>
+    <!--      system settings     -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon svgIcon="raspberry_color"></mat-icon>
+          HOST
+        </mat-panel-title>
+        <mat-panel-description>
+          <ng-container *ngIf="tempAvg">({{tempAvg}}°C avg)</ng-container>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="menu">
+        <mat-list>
+          <mat-list-item *ngFor="let t of temp">{{t.zone}}: {{t.temp}}</mat-list-item>
+        </mat-list>
+      </div>
+    </mat-expansion-panel>
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet></router-outlet>

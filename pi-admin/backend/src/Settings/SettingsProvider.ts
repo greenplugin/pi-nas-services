@@ -1,7 +1,6 @@
 import yaml from 'js-yaml'
 import {error} from "winston";
 import {FileReaderInterface} from "./interface/FileReaderInterface";
-import {isPrimitive} from "util";
 
 export class SettingsProvider<T> {
     private config: any;
@@ -9,8 +8,8 @@ export class SettingsProvider<T> {
     constructor(private reader: FileReaderInterface, private configName: string) {
     }
 
-    public load(): T {
-        if (!this.config) {
+    public load(cache: boolean = true): T {
+        if (!this.config || !cache) {
             this.config = this.loadConfig()
         }
         return this.config;

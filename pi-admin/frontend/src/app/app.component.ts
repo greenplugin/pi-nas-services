@@ -1,12 +1,12 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {MainIconsService} from "./icons/main-icons.service";
-import {ApiService} from "./services/api.service";
 import {filter} from "rxjs/operators";
 import {WebsocketService} from "./services/websocket.service";
 import {ContainerData} from "./docker/interfaces/container-data-interface";
 import {DockerContainersService} from "./docker/services/docker-containers.service";
-import {RouterLinkActive} from "@angular/router";
 import {StorageService} from "./services/storage.service";
+import {MenuService} from "./services/menu.service";
+import {MenuItemInterface, MenuSectionInterface} from "./interfaces/menu-section-interface";
 
 interface Temp {
     zone: string
@@ -20,6 +20,7 @@ interface Temp {
 })
 export class AppComponent implements OnInit, AfterViewInit {
     title = 'frontend';
+    menuItems: MenuSectionInterface[] = [];
     shadowSideNavOpened = true;
     disableAnimation = true;
 
@@ -40,7 +41,8 @@ export class AppComponent implements OnInit, AfterViewInit {
         private storageService: StorageService,
         private mainIconsService: MainIconsService,
         private wsService: WebsocketService,
-        private dockerContainerService: DockerContainersService
+        private dockerContainerService: DockerContainersService,
+        private menuService: MenuService
     ) {
         mainIconsService.registerIcon('pptpd', '/assets/pptpd.svg');
         mainIconsService.registerIcon('openvpn', '/assets/openvpn.svg');
@@ -50,6 +52,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
+        this.loadMenu()
+
         this.wsService.wsMessages
             .pipe(filter((message: any) => message.path === 'device.temp.all'))
             .subscribe((message: { data: Temp[] }) => {
@@ -70,7 +74,26 @@ export class AppComponent implements OnInit, AfterViewInit {
             .subscribe((containers: ContainerData[]) => this.containers = containers);
     }
 
+    loadMenu() {
+        this.menuService
+            .loadMenu()
+            .subscribe((menu) => {
+                console.info(menu);
+                this.menuItems = menu;
+            })
+    }
+
     getContainerName(containerData: ContainerData) {
         return containerData.Names.join(', ').replace(/\//gm, '')
+    }
+
+    getRouterLink(item: MenuItemInterface) {
+        if (item.type === "configuration") {
+            return ['/configuration', item.route].join('/')
+        }
+
+        if (item.type === "iframe") {
+            return ['/external-service', item.route].join('/')
+        }
     }
 }
