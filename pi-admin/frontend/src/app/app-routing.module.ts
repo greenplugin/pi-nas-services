@@ -8,6 +8,7 @@ import {DockerContainerConsoleComponent} from "./docker/components/docker-contai
 import {EditorCommonComponent} from "./config-editor/components/editor-common/editor-common.component";
 import {ServiceSettingsCommonComponent} from "./service-settings/components/service-settings-common/service-settings-common.component";
 import {ServiceIframeCommonComponent} from "./service-iframe/components/service-iframe-common/service-iframe-common.component";
+import {DeviceCommonComponent} from "./device/components/device-common/device-common.component";
 
 
 const routes: Routes = [
@@ -49,6 +50,10 @@ const routes: Routes = [
     {
         path: 'external-service/:menuId',
         component: ServiceIframeCommonComponent
+    },
+    {
+        path: 'device-info',
+        component: DeviceCommonComponent
     }
 ];
 

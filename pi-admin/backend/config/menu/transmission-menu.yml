@@ -1,13 +1,13 @@
 menu:
   multimedia:
     items:
-      torrent-transmission:
-        type: configuration
-        title: Transmission
-        icon: device_hub
-        route: transmission-config
-        configFiles:
-          - transmission_main
+    #   torrent-transmission:
+    #     type: configuration
+    #     title: Transmission
+    #     icon: device_hub
+    #     route: transmission-config
+    #     configFiles:
+    #       - transmission_main
 
       torrent-transmission-panel:
         type: iframe

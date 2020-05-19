@@ -1,12 +1,12 @@
 menu:
   multimedia:
     items:
-      nextcloud:
-        type: configuration
-        title: NextCloud
-        icon: cloud
-        route: next-cloud
-        configFiles:
+    #   nextcloud:
+    #     type: configuration
+    #     title: NextCloud
+    #     icon: cloud
+    #     route: next-cloud
+    #     configFiles:
 
       nextcloud-external:
         type: external

@@ -53,7 +53,7 @@
           >
             <mat-icon [svgIcon]="item.svgIcon">{{item.icon}}</mat-icon>
             {{item.title}}
-            <mat-icon style="zoom: .6" color="accent">launch</mat-icon>
+            <mat-icon style="zoom: .6" color="warn">launch</mat-icon>
           </a>
         </ng-container>
       </div>
@@ -86,7 +86,7 @@
       </div>
     </mat-expansion-panel>
     <!--      system settings     -->
-    <mat-expansion-panel>
+    <mat-expansion-panel routerLinkActive #rpilink="routerLinkActive" [expanded]="rpilink.isActive">
       <mat-expansion-panel-header>
         <mat-panel-title>
           <mat-icon svgIcon="raspberry_color"></mat-icon>
@@ -96,11 +96,15 @@
           <ng-container *ngIf="tempAvg">({{tempAvg}}°C avg)</ng-container>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <div class="menu">
-        <mat-list>
-          <mat-list-item *ngFor="let t of temp">{{t.zone}}: {{t.temp}}</mat-list-item>
-        </mat-list>
-      </div>
+        <div class="menu">
+          <button mat-button
+                  routerLinkActive
+                  #rl="routerLinkActive"
+                  [color]="rl.isActive ? 'primary': null"
+                  routerLink="/device-info">
+            Device info
+          </button>
+        </div>
     </mat-expansion-panel>
   </mat-sidenav>
   <mat-sidenav-content>

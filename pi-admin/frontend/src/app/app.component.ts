@@ -8,7 +8,7 @@ import {StorageService} from "./services/storage.service";
 import {MenuService} from "./services/menu.service";
 import {MenuItemInterface, MenuSectionInterface} from "./interfaces/menu-section-interface";
 
-interface Temp {
+export interface Temp {
     zone: string
     temp: number
 }

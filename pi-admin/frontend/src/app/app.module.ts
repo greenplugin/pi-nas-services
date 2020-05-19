@@ -25,6 +25,9 @@ import {AngularResizedEventModule} from "angular-resize-event";
 import { EditorCommonComponent } from './config-editor/components/editor-common/editor-common.component';
 import { ServiceSettingsCommonComponent } from './service-settings/components/service-settings-common/service-settings-common.component';
 import { ServiceIframeCommonComponent } from './service-iframe/components/service-iframe-common/service-iframe-common.component';
+import {ChartsModule} from "ng2-charts";
+import { ChartComponent } from './components/chart/chart.component';
+import { DeviceCommonComponent } from './device/components/device-common/device-common.component';
 
 const monacoConfig: NgxMonacoEditorConfig = {
     baseUrl: 'assets',
@@ -49,7 +52,9 @@ const monacoConfig: NgxMonacoEditorConfig = {
         TreeNodeComponent,
         EditorCommonComponent,
         ServiceSettingsCommonComponent,
-        ServiceIframeCommonComponent
+        ServiceIframeCommonComponent,
+        ChartComponent,
+        DeviceCommonComponent
     ],
     imports: [
         BrowserModule,
@@ -60,7 +65,8 @@ const monacoConfig: NgxMonacoEditorConfig = {
         FormsModule,
         NgTerminalModule,
         MonacoEditorModule.forRoot(monacoConfig),
-        AngularResizedEventModule
+        AngularResizedEventModule,
+        ChartsModule
     ],
     providers: [],
     bootstrap: [AppComponent]
