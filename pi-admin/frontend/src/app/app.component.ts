@@ -34,7 +34,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     public temp: Temp[]
-    public tempAvg: number;
+    public tempAvg: string;
     public containers: ContainerData[] = []
 
     constructor(
@@ -58,7 +58,7 @@ export class AppComponent implements OnInit, AfterViewInit {
             .pipe(filter((message: any) => message.path === 'device.temp.all'))
             .subscribe((message: { data: Temp[] }) => {
                 this.temp = message.data;
-                this.tempAvg = this.temp.reduce((result: number, item: Temp) => result + item.temp, 0) / this.temp.length;
+                this.tempAvg = (this.temp.reduce((result: number, item: Temp) => result + item.temp, 0) / this.temp.length).toFixed(2);
             })
 
         this.loadContainers();
