@@ -1,7 +1,6 @@
 version: "3.6"
 
 services:
-
   pi_admin_backend:
     build: ./pi-admin/backend
     container_name: pi_admin_backend
@@ -16,6 +15,7 @@ services:
       - ./pi-admin/backend/env:/config/admin/env
       - ./pi-admin/frontend/src/environments/:/config/admin/frontend
       - ./docker-compose.yml:/config/host/docker/docker-compose.yml
+      - ./docker-compose.override.yml:/config/host/docker/docker-compose.override.yml
     privileged: true
     restart: always
     ports:
@@ -39,6 +39,8 @@ services:
       - 1900/udp
       - 8200/tcp
     network_mode: host
+    env_file:
+      - ./minidlna/config/minidlna.env
   transmission:
     build: ./transmission
     container_name: transmission
@@ -55,7 +57,6 @@ services:
     ports:
       #Web
       - 9091:9091
-
       - 51413:51413
       - 51413:51413/udp
     network_mode: host
