@@ -15,7 +15,6 @@ services:
       - ./pi-admin/backend/env:/config/admin/env
       - ./pi-admin/frontend/src/environments/:/config/admin/frontend
       - ./docker-compose.yml:/config/host/docker/docker-compose.yml
-      - ./docker-compose.override.yml:/config/host/docker/docker-compose.override.yml
     privileged: true
     restart: always
     ports:
