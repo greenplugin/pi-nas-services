@@ -10,4 +10,4 @@ RUN \
    apk upgrade && \
    apk add bash minidlna ffmpegthumbnailer inotify-tools sqlite
 
-ENTRYPOINT [ "/usr/sbin/minidlnad", "-S" ]
+CMD minidlnad -d -f /etc/minidlna.conf
