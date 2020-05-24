@@ -20,16 +20,15 @@ export class ServiceIframeCommonComponent implements OnInit {
     constructor(route: ActivatedRoute, menuService: MenuService, domSanitizer: DomSanitizer) {
         route.params.subscribe(params => {
             this.route = params.menuId
-            menuService.getMenu().subscribe((menu) => {
-                menu.forEach(menuRow => {
-                    menuRow.items
-                        .forEach(item => {
-                            if (item.route === this.route && item.type === "iframe") {
-                                this.path = domSanitizer.bypassSecurityTrustResourceUrl(item.path)
-                            }
-                        })
+            menuService.getMenu()
+                .subscribe((menu) => {
+                    menu.forEach(menuRow => {
+                        const item = menuRow.items.find(item => item.route === this.route && item.type === "iframe") as MenuItemIframeInterface
+                        if (item) {
+                            this.path = domSanitizer.bypassSecurityTrustResourceUrl(item.path)
+                        }
+                    })
                 })
-            })
         })
     }
 

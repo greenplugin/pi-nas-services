@@ -39,7 +39,7 @@ mat-expansion-panel {
   background: rgba(227, 227, 238, 0.44);
   box-shadow: 0 -3px 10px #663ab742 inset;
 
-  > button {
+  > button, > a {
     width: 100%;
     border-radius: 0;
     text-align: left;
