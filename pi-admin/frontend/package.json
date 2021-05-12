@@ -24,7 +24,7 @@
     "@angular/router": "~9.1.6",
     "angular-resize-event": "^1.2.1",
     "ansi-to-html": "^0.6.14",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "chartjs-plugin-annotation": "^0.5.7",
     "monaco-editor": "^0.20.0",
     "ng-terminal": "^2.4.0",
