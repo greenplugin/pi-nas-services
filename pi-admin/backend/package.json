@@ -33,7 +33,7 @@
     "utf8-to-ansi": "^1.0.3",
     "websocket-stream": "^5.5.2",
     "winston": "^3.2.1",
-    "ws": "^7.2.5"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "@types/command-line-args": "^5.0.0",
